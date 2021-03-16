@@ -21,6 +21,7 @@ def operation(op):
     global n
     global total_List
     global place
+    global count
     a = 0  # y-axis movement in coordinate
     b = 0  # x-axis movement in coordinate
     if op == 'up' and place[0] != n-1:
@@ -35,11 +36,13 @@ def operation(op):
     total_List[place[0]+a][place[1]+b] = '$'  # change the position
     place[0] = place[0]+a
     place[1] = place[1]+b  # change the coordinate position of the '$'
+    count += 1
 
 
+count = 0
 n = 5  # determine the size of the table
 place = [0, 0]  # to initialize location of the space
-total_List=[]
+total_List = []
 initial_List = generating(n)  # generating the initial list
 display(total_List)
 while True:
