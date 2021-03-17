@@ -2,13 +2,12 @@ import copy  # dependencies
 
 
 def integer_test(n):
-    flag = False
     k = []
     for i in range(3, 11):
         k.append(str(i))
     if n in k:
-        flag = True
-    return flag
+        return True
+    return False
 
 
 def generating(n, total_List):  # generating the initial table in order
