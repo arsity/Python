@@ -72,6 +72,27 @@ def display(a):  # display the table
         print("\n", end="")
 
 
+def key_valid_test(s):
+    n = ord(s)
+    if (n in list(range(65, 91))) or (n in list(range(97, 123))):
+        return True
+    return False
+
+
+def bind_key():
+    word_list = ['Enter the key that you can let the number under the space go up: ', 'Enter the key that you can let the number above the space go down: ',
+                 'Enter the key that you can let the number on the left side of the space go right: ', 'Enter the key that you can let the number on the right side of the space go left: ']
+    bind_Key_List = []
+    for i in range(0, 4):
+        while True:
+            key = input(word_list[i])
+            if (key_valid_test(key) == True) and (key not in bind_Key_List):
+                bind_Key_List.append(key)
+                break
+            print("Invalid input!")
+    return bind_Key_List
+
+
 count = 0  # define the count to calculate steps
 
 while True:  # determine the size of the table
@@ -103,24 +124,3 @@ while True:
     elif total_List == initial_List:  # to judge if finish
         print("Congratulations!", "You finish in", count, "steps.")
         break
-
-
-def key_valid_test(s):
-    n = ord(s)
-    if (n in list(range(65, 91))) or (n in list(range(97, 123))):
-        return True
-    return False
-
-
-def bind_key():
-    word_list = ['Enter the key that you can let the number under the space go up: ', 'Enter the key that you can let the number above the space go down: ',
-                 'Enter the key that you can let the number on the left side of the space go right: ', 'Enter the key that you can let the number on the right side of the space go left: ']
-    bind_Key_List = []
-    for i in range(0, 4):
-        while True:
-            key = input(word_list[i])
-            if (key_valid_test(key) == True) and (key not in bind_Key_List):
-                bind_Key_List.append(key)
-                break
-            print("Invalid input!")
-    return bind_Key_List
