@@ -3,8 +3,8 @@ import copy  # dependencies
 
 def integer_test(n):
     flag = False
-    k=[]
-    for i in range(3,11):
+    k = []
+    for i in range(3, 11):
         k.append(str(i))
     if n in k:
         flag = True
@@ -71,8 +71,8 @@ display(total_List)  # show the table
 while True:
     # to judge if invalid operation in followings
     list_For_Judge = copy.deepcopy(total_List)
-    total_List = operation(
-        input('Select your operation: '), total_List)  # operation of the table
+    total_List = operation(input('Select your operation: '),
+                           total_List)  # operation of the table
     display(total_List)  # show the result
     count += 1  # count the steps
     if list_For_Judge == total_List:
