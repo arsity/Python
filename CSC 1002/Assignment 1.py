@@ -26,11 +26,11 @@ def bind_key(operaion_List, up, down, left, right):
     op = input(': ')
     if op == up:
         translation = 'up'
-    if op == down:
+    elif op == down:
         translation = 'down'
-    if op == left:
+    elif op == left:
         translation = 'left'
-    if op == right:
+    elif op == right:
         translation = 'right'
     return translation
 
@@ -42,11 +42,11 @@ def operation(op, l):
     b = 0  # x-axis movement in coordinate
     if op == 'up' and place[0] != n-1:
         a = 1
-    if op == 'down' and place[0] != 0:
+    elif op == 'down' and place[0] != 0:
         a = -1
-    if op == 'left' and place[1] != 0:
+    elif op == 'left' and place[1] != 0:
         b = -1
-    if op == 'right' and place[1] != n-1:
+    elif op == 'right' and place[1] != n-1:
         b = 1
     l[place[0]][place[1]] = l[place[0]+a][place[1]+b]
     l[place[0]+a][place[1]+b] = '$'  # change the position
@@ -104,6 +104,6 @@ while True:
     if list_For_Judge == total_List:
         count += -1  # if valid, cancel the counting step
         print("Invalid Operation!")
-    if total_List == initial_List:  # to judge if finish
+    elif total_List == initial_List:  # to judge if finish
         print("Congratulations!")
         break
