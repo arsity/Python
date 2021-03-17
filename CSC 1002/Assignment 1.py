@@ -1,22 +1,22 @@
-import copy  # dependencies
+import copy  # for deep copy
 
 
-def integer_test(n):
+def integer_test(n):  # to test if the decision of size fulfill the requirement
     k = []
-    for i in range(3, 11):
+    for i in range(3, 11):  # number from 3 to 10
         k.append(str(i))
-    if n in k:
+    if n in k:  # return result
         return True
     return False
 
 
-def key_valid_test(s):
+def key_valid_test(s):  # to test if the decision of binding key fullfill the requirement
     valid_list = []
-    for code in range(65, 91):
+    for code in range(65, 91):  # all upper letters
         valid_list.append(chr(code))
-    for code in range(97, 123):
+    for code in range(97, 123):  # all lower letters
         valid_list.append(chr(code))
-    if s in valid_list:
+    if s in valid_list:  # return result
         return True
     return False
 
