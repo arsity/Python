@@ -1,5 +1,4 @@
-def generating(n):  # generating the initial table in order
-    global total_List
+def generating(n, total_List):  # generating the initial table in order
     for row in range(0, n):  # generate the full table
         list_temp = list(range(row*n+1, row*n+n+1))
         total_List.append(list_temp)
@@ -7,21 +6,26 @@ def generating(n):  # generating the initial table in order
     global place
     place = [n-1, n-1]  # to state the location of the space
     return total_List
-    # mess it
 
 
-def display(total_List):  # display the table
-    for row in total_List:
+def mess(a):
+    import random
+    for i in range(0, 10000):
+        op = random.choice(['up', 'down', 'right', 'left'])
+        a = operation(op, a)
+    return a
+
+
+def display(a):  # display the table
+    for row in a:
         for column in row:
             print("%+3s" % (column), end=" ")  # to display on certain position
         print("\n", end="")
 
 
-def operation(op):
+def operation(op, l):
     global n
-    global total_List
     global place
-    global count
     a = 0  # y-axis movement in coordinate
     b = 0  # x-axis movement in coordinate
     if op == 'up' and place[0] != n-1:
@@ -32,22 +36,29 @@ def operation(op):
         b = -1
     if op == 'right' and place[1] != n-1:
         b = 1
-    total_List[place[0]][place[1]] = total_List[place[0]+a][place[1]+b]
-    total_List[place[0]+a][place[1]+b] = '$'  # change the position
+    l[place[0]][place[1]] = l[place[0]+a][place[1]+b]
+    l[place[0]+a][place[1]+b] = '$'  # change the position
     place[0] = place[0]+a
     place[1] = place[1]+b  # change the coordinate position of the '$'
-    count += 1
+    return l
 
 
-count = 0
-n = 5  # determine the size of the table
+count = 0  # define the count to calculate steps
+n = 3  # determine the size of the table
 place = [0, 0]  # to initialize location of the space
-total_List = []
-initial_List = generating(n)  # generating the initial list
+total_List = []  # to initialize the table
+total_List = generating(n, total_List)  # generating the initial list
+initial_List = total_List
+total_List = mess(total_List)
 display(total_List)
 while True:
     list_For_Judge = total_List
-    operation(input('Select your operation: '))
+    total_List = operation(input('Select your operation: '), total_List)
     display(total_List)
+    count += 1
     if list_For_Judge == total_List:
+        count += -1
         print("Invalid Operation!")
+    if total_List == initial_List:
+        print("Congratulations!")
+        break
