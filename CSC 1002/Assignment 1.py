@@ -105,5 +105,5 @@ while True:
         count += -1  # if valid, cancel the counting step
         print("Invalid Operation!")
     elif total_List == initial_List:  # to judge if finish
-        print("Congratulations!")
+        print("Congratulations!", "You finish in", count, "steps.")
         break
