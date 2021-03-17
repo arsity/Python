@@ -21,6 +21,21 @@ def generating(n, total_List):  # generating the initial table in order
     return total_List
 
 
+def bind_key(operaion_List, up, down, left, right):
+    translation = None
+    print('Enter one of', up, down, left, right, end='')
+    op = input(': ')
+    if op == up:
+        translation = 'up'
+    if op == down:
+        translation = 'down'
+    if op == left:
+        translation = 'left'
+    if op == right:
+        translation = 'right'
+    return translation
+
+
 def operation(op, l):
     global n
     global place
@@ -41,10 +56,10 @@ def operation(op, l):
     return l
 
 
-def mess(a):  # to make a random table at start
+def mess(a, operaion_List):  # to make a random table at start
     import random
     for i in range(0, 10000):
-        op = random.choice(['up', 'down', 'right', 'left'])
+        op = random.choice(operaion_List)
         a = operation(op, a)
     return a
 
@@ -57,21 +72,33 @@ def display(a):  # display the table
 
 
 count = 0  # define the count to calculate steps
+
 while True:  # determine the size of the table
     n = input("Enter an integer from 3 to 10 to determine the size: ")
     if integer_test(n) == True:
         n = int(n)
         break
+
+up = input('Enter the key that you can let the number under the space go up: ')
+down = input(
+    'Enter the key that you can let the number above the space go down: ')
+left = input(
+    'Enter the key that you can let the number on the left side of the space go right: ')
+right = input(
+    'Enter the key that you can let the number on the right side of the space go left: ')
+operaion_List = ['up', 'down', 'left', 'right']
+
+
 place = [0, 0]  # to initialize location of the space
 total_List = []  # to initialize the table
 total_List = generating(n, total_List)  # generating the initial table
 initial_List = copy.deepcopy(total_List)  # save the original table
-total_List = mess(total_List)  # mess the table at start
+total_List = mess(total_List, operaion_List)  # mess the table at start
 display(total_List)  # show the table
 while True:
     # to judge if invalid operation in followings
     list_For_Judge = copy.deepcopy(total_List)
-    total_List = operation(input('Select your operation: '),
+    total_List = operation(bind_key(operaion_List, up, down, left, right),
                            total_List)  # operation of the table
     display(total_List)  # show the result
     count += 1  # count the steps
