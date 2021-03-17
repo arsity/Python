@@ -88,7 +88,6 @@ right = input(
     'Enter the key that you can let the number on the right side of the space go left: ')
 operaion_List = ['up', 'down', 'left', 'right']
 
-
 place = [0, 0]  # to initialize location of the space
 total_List = []  # to initialize the table
 total_List = generating(n, total_List)  # generating the initial table
