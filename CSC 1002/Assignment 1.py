@@ -10,6 +10,36 @@ def integer_test(n):
     return False
 
 
+def key_valid_test(s):
+    valid_list = []
+    for code in range(65, 91):
+        valid_list.append(chr(code))
+    for code in range(97, 123):
+        valid_list.append(chr(code))
+    if s in valid_list:
+        return True
+    return False
+
+
+def bind_key():
+    word_list = ['Enter the key that you can let the number under the space go up: ', 'Enter the key that you can let the number above the space go down: ',
+                 'Enter the key that you can let the number on the left side of the space go right: ', 'Enter the key that you can let the number on the right side of the space go left: ']
+    bind_Key_List = []
+    for i in range(0, 4):
+        while True:
+            key = input(word_list[i])
+            if key_valid_test(key) == True:
+                if key not in bind_Key_List:
+                    bind_Key_List.append(key)
+                    break
+                else:
+                    print(
+                        "This key has been bound to another action! Please enter another letter!")
+            else:
+                print("Invalid binding key! Please enter a letter!")
+    return bind_Key_List
+
+
 def generating(n, total_List):  # generating the initial table in order
     for row in range(0, n):  # generate the full table
         list_temp = list(range(row*n+1, row*n+n+1))
@@ -70,36 +100,6 @@ def display(a):  # display the table
         for column in row:
             print("%+3s" % (column), end=" ")  # to display on certain position
         print("\n", end="")
-
-
-def key_valid_test(s):
-    valid_list = []
-    for code in range(65, 91):
-        valid_list.append(chr(code))
-    for code in range(97, 123):
-        valid_list.append(chr(code))
-    if s in valid_list:
-        return True
-    return False
-
-
-def bind_key():
-    word_list = ['Enter the key that you can let the number under the space go up: ', 'Enter the key that you can let the number above the space go down: ',
-                 'Enter the key that you can let the number on the left side of the space go right: ', 'Enter the key that you can let the number on the right side of the space go left: ']
-    bind_Key_List = []
-    for i in range(0, 4):
-        while True:
-            key = input(word_list[i])
-            if key_valid_test(key) == True:
-                if key not in bind_Key_List:
-                    bind_Key_List.append(key)
-                    break
-                else:
-                    print(
-                        "This key has been bound to another action! Please enter another letter!")
-            else:
-                print("Invalid binding key! Please enter a letter!")
-    return bind_Key_List
 
 
 count = 0  # define the count to calculate steps
