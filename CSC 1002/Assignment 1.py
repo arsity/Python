@@ -32,9 +32,8 @@ def bind_key():
                 if key not in bind_Key_List:
                     bind_Key_List.append(key)
                     break
-                else:
-                    print(
-                        "This key has been bound to another action! Please enter another letter!")
+                print(
+                    "This key has been bound to another action! Please enter another letter!")
             else:
                 print("Invalid binding key! Please enter a letter!")
     return bind_Key_List
