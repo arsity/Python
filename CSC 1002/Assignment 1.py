@@ -108,6 +108,7 @@ while True:  # determine the size of the table
     if integer_test(n) == True:
         n = int(n)
         break
+    print("Please enter an integer from 3 to 10!")
 
 bind_Key_List = bind_key()
 operaion_List = ['up', 'down', 'left', 'right']
