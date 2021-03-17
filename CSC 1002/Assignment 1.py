@@ -73,8 +73,12 @@ def display(a):  # display the table
 
 
 def key_valid_test(s):
-    n = ord(s)
-    if (n in list(range(65, 91))) or (n in list(range(97, 123))):
+    valid_list = []
+    for code in range(65, 91):
+        valid_list.append(chr(code))
+    for code in range(97, 123):
+        valid_list.append(chr(code))
+    if s in valid_list:
         return True
     return False
 
@@ -86,10 +90,15 @@ def bind_key():
     for i in range(0, 4):
         while True:
             key = input(word_list[i])
-            if (key_valid_test(key) == True) and (key not in bind_Key_List):
-                bind_Key_List.append(key)
-                break
-            print("Invalid input!")
+            if key_valid_test(key) == True:
+                if key not in bind_Key_List:
+                    bind_Key_List.append(key)
+                    break
+                else:
+                    print(
+                        "This key has been bound to another action! Please enter another letter!")
+            else:
+                print("Invalid binding key! Please enter a letter!")
     return bind_Key_List
 
 
