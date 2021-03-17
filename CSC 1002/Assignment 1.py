@@ -1,6 +1,16 @@
 import copy  # dependencies
 
 
+def integer_test(n):
+    flag = False
+    k=[]
+    for i in range(3,11):
+        k.append(str(i))
+    if n in k:
+        flag = True
+    return flag
+
+
 def generating(n, total_List):  # generating the initial table in order
     for row in range(0, n):  # generate the full table
         list_temp = list(range(row*n+1, row*n+n+1))
@@ -47,7 +57,11 @@ def display(a):  # display the table
 
 
 count = 0  # define the count to calculate steps
-n = 3  # determine the size of the table
+while True:  # determine the size of the table
+    n = input("Enter an integer from 3 to 10 to determine the size: ")
+    if integer_test(n) == True:
+        n = int(n)
+        break
 place = [0, 0]  # to initialize location of the space
 total_List = []  # to initialize the table
 total_List = generating(n, total_List)  # generating the initial table
