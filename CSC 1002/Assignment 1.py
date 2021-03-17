@@ -20,17 +20,19 @@ def generating(n, total_List):  # generating the initial table in order
     return total_List
 
 
-def translate(operaion_List, up, down, left, right):
+def translate(operaion_List, bind_Key_List):
     translation = None
-    print('Enter one of', up, down, left, right, end='')
+    print('Enter one of', end='')
+    for i in bind_Key_List:
+        print(' ', i, end='')
     op = input(': ')
-    if op == up:
+    if op == bind_Key_List[0]:
         translation = 'up'
-    elif op == down:
+    elif op == bind_Key_List[1]:
         translation = 'down'
-    elif op == left:
+    elif op == bind_Key_List[2]:
         translation = 'left'
-    elif op == right:
+    elif op == bind_Key_List[3]:
         translation = 'right'
     return translation
 
@@ -78,13 +80,7 @@ while True:  # determine the size of the table
         n = int(n)
         break
 
-up = input('Enter the key that you can let the number under the space go up: ')
-down = input(
-    'Enter the key that you can let the number above the space go down: ')
-left = input(
-    'Enter the key that you can let the number on the left side of the space go right: ')
-right = input(
-    'Enter the key that you can let the number on the right side of the space go left: ')
+bind_Key_List = bind_key()
 operaion_List = ['up', 'down', 'left', 'right']
 
 place = [0, 0]  # to initialize location of the space
@@ -97,7 +93,7 @@ display(total_List)  # show the table
 while True:
     # to judge if invalid operation in followings
     list_For_Judge = copy.deepcopy(total_List)
-    total_List = operation(translate(operaion_List, up, down, left, right),
+    total_List = operation(translate(operaion_List, bind_Key_List),
                            total_List)  # operation of the table
     display(total_List)  # show the result
     count += 1  # count the steps
@@ -111,7 +107,7 @@ while True:
 
 def key_valid_test(s):
     n = ord(s)
-    if n in list(range(32, 127)):
+    if (n in list(range(65, 91))) or (n in list(range(97, 123))):
         return True
     return False
 
@@ -120,9 +116,11 @@ def bind_key():
     word_list = ['Enter the key that you can let the number under the space go up: ', 'Enter the key that you can let the number above the space go down: ',
                  'Enter the key that you can let the number on the left side of the space go right: ', 'Enter the key that you can let the number on the right side of the space go left: ']
     bind_Key_List = []
-    while True:
-        key = input(
-            'Enter the key that you can let the number under the space go up: ')
-        if (key_valid_test(key) == True) and (key not in bind_Key_List):
-            bind_Key_List.append(key)
-            break
+    for i in range(0, 4):
+        while True:
+            key = input(word_list[i])
+            if (key_valid_test(key) == True) and (key not in bind_Key_List):
+                bind_Key_List.append(key)
+                break
+            print("Invalid input!")
+    return bind_Key_List
