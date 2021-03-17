@@ -20,7 +20,7 @@ def generating(n, total_List):  # generating the initial table in order
     return total_List
 
 
-def bind_key(operaion_List, up, down, left, right):
+def translate(operaion_List, up, down, left, right):
     translation = None
     print('Enter one of', up, down, left, right, end='')
     op = input(': ')
@@ -97,7 +97,7 @@ display(total_List)  # show the table
 while True:
     # to judge if invalid operation in followings
     list_For_Judge = copy.deepcopy(total_List)
-    total_List = operation(bind_key(operaion_List, up, down, left, right),
+    total_List = operation(translate(operaion_List, up, down, left, right),
                            total_List)  # operation of the table
     display(total_List)  # show the result
     count += 1  # count the steps
@@ -107,3 +107,22 @@ while True:
     elif total_List == initial_List:  # to judge if finish
         print("Congratulations!", "You finish in", count, "steps.")
         break
+
+
+def key_valid_test(s):
+    n = ord(s)
+    if n in list(range(32, 127)):
+        return True
+    return False
+
+
+def bind_key():
+    word_list = ['Enter the key that you can let the number under the space go up: ', 'Enter the key that you can let the number above the space go down: ',
+                 'Enter the key that you can let the number on the left side of the space go right: ', 'Enter the key that you can let the number on the right side of the space go left: ']
+    bind_Key_List = []
+    while True:
+        key = input(
+            'Enter the key that you can let the number under the space go up: ')
+        if (key_valid_test(key) == True) and (key not in bind_Key_List):
+            bind_Key_List.append(key)
+            break
