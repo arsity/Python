@@ -93,6 +93,7 @@ total_List = generating(n, total_List)  # generating the initial table
 initial_List = copy.deepcopy(total_List)  # save the original table
 total_List = mess(total_List, operaion_List)  # mess the table at start
 display(total_List)  # show the table
+
 while True:
     # to judge if invalid operation in followings
     list_For_Judge = copy.deepcopy(total_List)
