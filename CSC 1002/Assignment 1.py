@@ -145,6 +145,6 @@ while True:
             "Do you want to start a new game? (y-Yes, n-No): ")
         if restart_Sign in ['Y', 'y', 'N', 'n']:
             break
-    if restart_Sign == 'y' or 'Y':
+    if restart_Sign in ['Y', 'y']:
         continue
     break
