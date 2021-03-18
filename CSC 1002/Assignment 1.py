@@ -59,7 +59,7 @@ def translate(operaion_List, bind_Key_List, place, n):
     if place[1] != 0:
         print(bind_Key_List[2], end=' ')
     if place[1] != n-1:
-        print(bind_Key_List[3],end='')
+        print(bind_Key_List[3], end='')
     op = input(': ')
     if op == bind_Key_List[0]:
         translation = 'up'
@@ -143,7 +143,7 @@ while True:
     while True:
         restart_Sign = input(
             "Do you want to start a new game? (y-Yes, n-No): ")
-        if restart_Sign == 'y' or 'Y' or 'n' or 'N':
+        if restart_Sign in ['Y', 'y', 'N', 'n']:
             break
     if restart_Sign == 'y' or 'Y':
         continue
