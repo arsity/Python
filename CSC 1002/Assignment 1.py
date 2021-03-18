@@ -49,11 +49,17 @@ def generating(n, total_List):  # generating the initial table in order
     return total_List
 
 
-def translate(operaion_List, bind_Key_List):
+def translate(operaion_List, bind_Key_List, place, n):
     translation = None
-    print('Enter one of', end='')
-    for i in bind_Key_List:
-        print(' ', i, end='')
+    print('Enter one of', end=' ')
+    if place[0] != 0:
+        print(bind_Key_List[0], end=' ')
+    if place[0] != n-1:
+        print(bind_Key_List[1], end=' ')
+    if place[1] != n-1:
+        print(bind_Key_List[2], end=' ')
+    if place[1] != 0:
+        print(bind_Key_List[3])
     op = input(': ')
     if op == bind_Key_List[0]:
         translation = 'up'
@@ -124,7 +130,7 @@ while True:
     while True:
         # to judge if invalid operation in followings
         list_For_Judge = copy.deepcopy(total_List)
-        total_List = operation(translate(operaion_List, bind_Key_List),
+        total_List = operation(translate(operaion_List, bind_Key_List, place, n),
                                total_List)  # operation of the table
         display(total_List)  # show the result
         count += 1  # count the steps
