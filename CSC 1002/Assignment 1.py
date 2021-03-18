@@ -14,12 +14,12 @@ def integer_test(n):  # test an integer from 3 to 10
 def bind_key():  # bind custom key
     # printing words
     valid_List = list(string.ascii_letters)
-    word_list = ['Enter the key that you can let the number under the space go up: ', 'Enter the key that you can let the number above the space go down: ',
+    word_List = ['Enter the key that you can let the number under the space go up: ', 'Enter the key that you can let the number above the space go down: ',
                  'Enter the key that you can let the number on the left side of the space go right: ', 'Enter the key that you can let the number on the right side of the space go left: ']
     bind_Key_List = []
     for i in range(0, 4):
         while True:
-            key = input(word_list[i])
+            key = input(word_List[i])
             if key in valid_List:  # test one letter
                 if key not in bind_Key_List:  # test used before
                     bind_Key_List.append(key)
