@@ -1,4 +1,5 @@
 import copy  # for deep copy
+import string  # for ascii letter list
 
 
 def integer_test(n):  # to test if the decision of size fulfill the requirement
@@ -11,12 +12,8 @@ def integer_test(n):  # to test if the decision of size fulfill the requirement
 
 
 def key_valid_test(s):  # to test if the decision of binding key fullfill the requirement
-    valid_list = []
-    for code in range(65, 91):  # all upper letters
-        valid_list.append(chr(code))
-    for code in range(97, 123):  # all lower letters
-        valid_list.append(chr(code))
-    if s in valid_list:  # return result
+    valid_List = list(string.ascii_letters)
+    if s in valid_List:  # return result
         return True
     return False
 
