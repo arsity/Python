@@ -31,7 +31,7 @@ def bind_key():  # bind custom key
     return bind_Key_List
 
 
-def generating(n, total_List):  # generate the matrix in order
+def generate(n, total_List):  # generate the matrix in order
     for row in range(0, n):  # generate the full matrix
         list_Temp = list(range(row*n+1, row*n+n+1))
         total_List.append(list_Temp)
@@ -115,7 +115,7 @@ while True:
     count = 0  # define the count to calculate steps
     gl_Place = [0, 0]  # initialize location of the space
     gl_Total_List = []  # initialize the matrix
-    gl_Total_List = generating(gl_N, gl_Total_List)
+    gl_Total_List = generate(gl_N, gl_Total_List)
     initial_List = copy.deepcopy(gl_Total_List)  # save the original matrix
     gl_Total_List = mess(gl_Total_List, operaion_List)
     display(gl_Total_List)
