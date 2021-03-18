@@ -66,17 +66,17 @@ def translate(operaion_List, bind_Key_List, gl_Place, n):
 
 
 def operation(op, l):  # move space operation
-    global n
+    global gl_N
     global gl_Place
     y = 0  # y-axis movement in coordinate
     x = 0  # x-axis movement in coordinate
-    if op == 'up' and gl_Place[0] != n-1:
+    if op == 'up' and gl_Place[0] != gl_N-1:
         y = 1
     elif op == 'down' and gl_Place[0] != 0:
         y = -1
     elif op == 'left' and gl_Place[1] != 0:
         x = -1
-    elif op == 'right' and gl_Place[1] != n-1:
+    elif op == 'right' and gl_Place[1] != gl_N-1:
         x = 1
     l[gl_Place[0]][gl_Place[1]] = l[gl_Place[0]+y][gl_Place[1]+x]
     l[gl_Place[0]+y][gl_Place[1]+x] = ' '  # change the position
@@ -103,9 +103,9 @@ def display(a):  # display the table
 while True:
     # determine the size of the table
     while True:
-        n = input("Enter an integer from 3 to 10 to determine the size: ")
-        if integer_test(n) == True:
-            n = int(n)
+        gl_N = input("Enter an integer from 3 to 10 to determine the size: ")
+        if integer_test(gl_N) == True:
+            gl_N = int(gl_N)
             break
         print("Please enter an integer from 3 to 10!")
 
@@ -115,7 +115,7 @@ while True:
     count = 0  # define the count to calculate steps
     gl_Place = [0, 0]  # initialize location of the space
     gl_Total_List = []  # initialize the matrix
-    gl_Total_List = generating(n, gl_Total_List)
+    gl_Total_List = generating(gl_N, gl_Total_List)
     initial_List = copy.deepcopy(gl_Total_List)  # save the original matrix
     gl_Total_List = mess(gl_Total_List, operaion_List)
     display(gl_Total_List)
@@ -123,7 +123,7 @@ while True:
     while True:
         # to judge if invalid operation in followings
         list_For_Judge = copy.deepcopy(gl_Total_List)
-        gl_Total_List = operation(translate(operaion_List, bind_Key_List, gl_Place, n),
+        gl_Total_List = operation(translate(operaion_List, bind_Key_List, gl_Place, gl_N),
                                   gl_Total_List)  # change the matrix
         display(gl_Total_List)
         count += 1
