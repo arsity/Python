@@ -46,13 +46,13 @@ def translate(operaion_List, bind_Key_List, gl_Place, n):
     translation = None
     print('Enter one of', end=' ')  # print the key can be chosen
     if gl_Place[0] != n-1:
-        print(bind_Key_List[0], end=' ')
+        print('up-', bind_Key_List[0], sep='', end=' ')
     if gl_Place[0] != 0:
-        print(bind_Key_List[1], end=' ')
+        print('down-', bind_Key_List[1], sep='', end=' ')
     if gl_Place[1] != 0:
-        print(bind_Key_List[2], end=' ')
+        print('left-', bind_Key_List[2], sep='', end=' ')
     if gl_Place[1] != n-1:
-        print(bind_Key_List[3], end='')
+        print('right-', bind_Key_List[3], sep='', end='')
     op = input(': ')
     if op == bind_Key_List[0]:  # translate the custom key
         translation = 'up'
