@@ -2,31 +2,32 @@ import copy  # for deep copy
 import string  # for ascii letter list
 
 
-def integer_test(n):  # to test if the decision of size fulfill the requirement
+def integer_test(n):  # test an integer from 3 to 10
     k = []
-    for i in range(3, 11):  # number from 3 to 10
+    for i in range(3, 11):
         k.append(str(i))
-    if n in k:  # return result
+    if n in k:
         return True
     return False
 
 
-def key_valid_test(s):  # to test if the decision of binding key fullfill the requirement
+def key_valid_test(s):  # test a letter
     valid_List = list(string.ascii_letters)
-    if s in valid_List:  # return result
+    if s in valid_List:
         return True
     return False
 
 
-def bind_key():
+def bind_key():  # bind custom key
+    # printing words
     word_list = ['Enter the key that you can let the number under the space go up: ', 'Enter the key that you can let the number above the space go down: ',
                  'Enter the key that you can let the number on the left side of the space go right: ', 'Enter the key that you can let the number on the right side of the space go left: ']
     bind_Key_List = []
     for i in range(0, 4):
         while True:
             key = input(word_list[i])
-            if key_valid_test(key) == True:
-                if key not in bind_Key_List:
+            if key_valid_test(key) == True:  # test one letter
+                if key not in bind_Key_List:  # test used before
                     bind_Key_List.append(key)
                     break
                 print(
@@ -36,19 +37,19 @@ def bind_key():
     return bind_Key_List
 
 
-def generating(n, total_List):  # generating the initial table in order
-    for row in range(0, n):  # generate the full table
+def generating(n, total_List):  # generate the matrix in order
+    for row in range(0, n):  # generate the full matrix
         list_temp = list(range(row*n+1, row*n+n+1))
         total_List.append(list_temp)
     total_List[n-1][n-1] = " "  # replace the last one as ' '
     global place
-    place = [n-1, n-1]  # to state the location of the space
+    place = [n-1, n-1]  # state the location of the space
     return total_List
 
 
-def translate(operaion_List, bind_Key_List, place, n):
+def translate(operaion_List, bind_Key_List, place, n):  # translate custom key to standard order
     translation = None
-    print('Enter one of', end=' ')
+    print('Enter one of', end=' ')  # print the key can be chosen
     if place[0] != n-1:
         print(bind_Key_List[0], end=' ')
     if place[0] != 0:
@@ -58,7 +59,7 @@ def translate(operaion_List, bind_Key_List, place, n):
     if place[1] != n-1:
         print(bind_Key_List[3], end='')
     op = input(': ')
-    if op == bind_Key_List[0]:
+    if op == bind_Key_List[0]:  # translate the custom key
         translation = 'up'
     elif op == bind_Key_List[1]:
         translation = 'down'
@@ -69,7 +70,7 @@ def translate(operaion_List, bind_Key_List, place, n):
     return translation
 
 
-def operation(op, l):
+def operation(op, l):  # move space operation
     global n
     global place
     a = 0  # y-axis movement in coordinate
@@ -89,7 +90,7 @@ def operation(op, l):
     return l
 
 
-def mess(a, operaion_List):  # to make a random table at start
+def mess(a, operaion_List):  # make a random table at start
     import random
     for i in range(0, 10000):
         op = random.choice(operaion_List)
@@ -105,38 +106,40 @@ def display(a):  # display the table
 
 
 while True:
-    count = 0  # define the count to calculate steps
-
-    while True:  # determine the size of the table
+    # determine the size of the table
+    while True:
         n = input("Enter an integer from 3 to 10 to determine the size: ")
         if integer_test(n) == True:
             n = int(n)
             break
         print("Please enter an integer from 3 to 10!")
 
+    # initialization
     bind_Key_List = bind_key()
     operaion_List = ['up', 'down', 'left', 'right']
-
-    place = [0, 0]  # to initialize location of the space
-    total_List = []  # to initialize the table
-    total_List = generating(n, total_List)  # generating the initial table
-    initial_List = copy.deepcopy(total_List)  # save the original table
-    total_List = mess(total_List, operaion_List)  # mess the table at start
-    display(total_List)  # show the table
+    count = 0  # define the count to calculate steps
+    place = [0, 0]  # initialize location of the space
+    total_List = []  # initialize the matrix
+    total_List = generating(n, total_List)
+    initial_List = copy.deepcopy(total_List)  # save the original matrix
+    total_List = mess(total_List, operaion_List)
+    display(total_List)
 
     while True:
         # to judge if invalid operation in followings
         list_For_Judge = copy.deepcopy(total_List)
         total_List = operation(translate(operaion_List, bind_Key_List, place, n),
-                               total_List)  # operation of the table
-        display(total_List)  # show the result
-        count += 1  # count the steps
+                               total_List)  # change the matrix
+        display(total_List)
+        count += 1
         if list_For_Judge == total_List:
-            count += -1  # if valid, cancel the counting step
+            count += -1  # if invalid, cancel the counting step
             print("Invalid Operation!")
         elif total_List == initial_List:  # to judge if finish
             print("Congratulations!", "You finish in", count, "steps.")
             break
+
+    # restart module
     while True:
         restart_Sign = input(
             "Do you want to start a new game? (y-Yes, n-No): ")
