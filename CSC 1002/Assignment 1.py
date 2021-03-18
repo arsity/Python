@@ -50,9 +50,9 @@ def translate(operaion_List, bind_Key_List, gl_Place, n):
     if gl_Place[0] != 0:
         print('down-', bind_Key_List[1], sep='', end=' ')
     if gl_Place[1] != 0:
-        print('left-', bind_Key_List[2], sep='', end=' ')
+        print('right-', bind_Key_List[2], sep='', end=' ')
     if gl_Place[1] != n-1:
-        print('right-', bind_Key_List[3], sep='', end='')
+        print('left-', bind_Key_List[3], sep='', end='')
     op = input(': ')
     if op == bind_Key_List[0]:  # translate the custom key
         translation = 'up'
