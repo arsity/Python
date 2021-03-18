@@ -3,10 +3,10 @@ import string  # for ascii letter list
 
 
 def integer_test(n):  # test an integer from 3 to 10
-    k = []
+    number_List = []
     for i in range(3, 11):
-        k.append(str(i))
-    if n in k:
+        number_List.append(str(i))
+    if n in number_List:
         return True
     return False
 
