@@ -44,7 +44,7 @@ def generating(n, total_List):  # generate the matrix in order
 # translate custom key to standard order
 def translate(operaion_List, bind_Key_List, gl_Place, n):
     translation = None
-    print('Enter one of', end=' ')  # print the key can be chosen
+    print('Enter one of (', end=' ')  # print the key can be chosen
     if gl_Place[0] != n-1:
         print('up-', bind_Key_List[0], sep='', end=' ')
     if gl_Place[0] != 0:
@@ -52,8 +52,8 @@ def translate(operaion_List, bind_Key_List, gl_Place, n):
     if gl_Place[1] != 0:
         print('right-', bind_Key_List[2], sep='', end=' ')
     if gl_Place[1] != n-1:
-        print('left-', bind_Key_List[3], sep='', end='')
-    op = input(': ')
+        print('left-', bind_Key_List[3], sep='', end=' ')
+    op = input('): ')
     if op == bind_Key_List[0]:  # translate the custom key
         translation = 'up'
     elif op == bind_Key_List[1]:
