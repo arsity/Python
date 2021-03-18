@@ -40,7 +40,7 @@ def generating(n, total_List):  # generating the initial table in order
     for row in range(0, n):  # generate the full table
         list_temp = list(range(row*n+1, row*n+n+1))
         total_List.append(list_temp)
-    (total_List[n-1])[n-1] = " "  # replace the last one as ' '
+    total_List[n-1][n-1] = " "  # replace the last one as ' '
     global place
     place = [n-1, n-1]  # to state the location of the space
     return total_List
