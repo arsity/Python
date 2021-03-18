@@ -101,35 +101,44 @@ def display(a):  # display the table
         print("\n", end="")
 
 
-count = 0  # define the count to calculate steps
-
-while True:  # determine the size of the table
-    n = input("Enter an integer from 3 to 10 to determine the size: ")
-    if integer_test(n) == True:
-        n = int(n)
-        break
-    print("Please enter an integer from 3 to 10!")
-
-bind_Key_List = bind_key()
-operaion_List = ['up', 'down', 'left', 'right']
-
-place = [0, 0]  # to initialize location of the space
-total_List = []  # to initialize the table
-total_List = generating(n, total_List)  # generating the initial table
-initial_List = copy.deepcopy(total_List)  # save the original table
-total_List = mess(total_List, operaion_List)  # mess the table at start
-display(total_List)  # show the table
-
 while True:
-    # to judge if invalid operation in followings
-    list_For_Judge = copy.deepcopy(total_List)
-    total_List = operation(translate(operaion_List, bind_Key_List),
-                           total_List)  # operation of the table
-    display(total_List)  # show the result
-    count += 1  # count the steps
-    if list_For_Judge == total_List:
-        count += -1  # if valid, cancel the counting step
-        print("Invalid Operation!")
-    elif total_List == initial_List:  # to judge if finish
-        print("Congratulations!", "You finish in", count, "steps.")
-        break
+    count = 0  # define the count to calculate steps
+
+    while True:  # determine the size of the table
+        n = input("Enter an integer from 3 to 10 to determine the size: ")
+        if integer_test(n) == True:
+            n = int(n)
+            break
+        print("Please enter an integer from 3 to 10!")
+
+    bind_Key_List = bind_key()
+    operaion_List = ['up', 'down', 'left', 'right']
+
+    place = [0, 0]  # to initialize location of the space
+    total_List = []  # to initialize the table
+    total_List = generating(n, total_List)  # generating the initial table
+    initial_List = copy.deepcopy(total_List)  # save the original table
+    total_List = mess(total_List, operaion_List)  # mess the table at start
+    display(total_List)  # show the table
+
+    while True:
+        # to judge if invalid operation in followings
+        list_For_Judge = copy.deepcopy(total_List)
+        total_List = operation(translate(operaion_List, bind_Key_List),
+                               total_List)  # operation of the table
+        display(total_List)  # show the result
+        count += 1  # count the steps
+        if list_For_Judge == total_List:
+            count += -1  # if valid, cancel the counting step
+            print("Invalid Operation!")
+        elif total_List == initial_List:  # to judge if finish
+            print("Congratulations!", "You finish in", count, "steps.")
+            break
+    while True:
+        restart_Sign = input(
+            "Do you want to start a new game? (y-Yes, n-No): ")
+        if restart_Sign == 'y' or 'Y' or 'n' or 'N':
+            break
+    if restart_Sign == 'y' or 'Y':
+        continue
+    break
