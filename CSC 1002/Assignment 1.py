@@ -14,12 +14,12 @@ def integer_test(n):  # test an integer from 3 to 10
 def bind_key():  # bind custom key
     # printing words
     VALID_LIST = list(string.ascii_letters)
-    word_List = ['Enter the key that you can let the number under the space go up: ', 'Enter the key that you can let the number above the space go down: ',
+    WORD_LIST = ['Enter the key that you can let the number under the space go up: ', 'Enter the key that you can let the number above the space go down: ',
                  'Enter the key that you can let the number on the left side of the space go right: ', 'Enter the key that you can let the number on the right side of the space go left: ']
     bind_Key_List = []
     for i in range(0, 4):
         while True:
-            key = input(word_List[i])
+            key = input(WORD_LIST[i])
             if key in VALID_LIST:  # test one letter
                 if key not in bind_Key_List:  # test used before
                     bind_Key_List.append(key)
@@ -41,7 +41,8 @@ def generating(n, total_List):  # generate the matrix in order
     return total_List
 
 
-def translate(operaion_List, bind_Key_List, gl_Place, n):  # translate custom key to standard order
+# translate custom key to standard order
+def translate(operaion_List, bind_Key_List, gl_Place, n):
     translation = None
     print('Enter one of', end=' ')  # print the key can be chosen
     if gl_Place[0] != n-1:
@@ -67,20 +68,20 @@ def translate(operaion_List, bind_Key_List, gl_Place, n):  # translate custom ke
 def operation(op, l):  # move space operation
     global n
     global gl_Place
-    a = 0  # y-axis movement in coordinate
-    b = 0  # x-axis movement in coordinate
+    y = 0  # y-axis movement in coordinate
+    x = 0  # x-axis movement in coordinate
     if op == 'up' and gl_Place[0] != n-1:
-        a = 1
+        y = 1
     elif op == 'down' and gl_Place[0] != 0:
-        a = -1
+        y = -1
     elif op == 'left' and gl_Place[1] != 0:
-        b = -1
+        x = -1
     elif op == 'right' and gl_Place[1] != n-1:
-        b = 1
-    l[gl_Place[0]][gl_Place[1]] = l[gl_Place[0]+a][gl_Place[1]+b]
-    l[gl_Place[0]+a][gl_Place[1]+b] = ' '  # change the position
-    gl_Place[0] = gl_Place[0]+a
-    gl_Place[1] = gl_Place[1]+b  # change the coordinate position of the ' '
+        x = 1
+    l[gl_Place[0]][gl_Place[1]] = l[gl_Place[0]+y][gl_Place[1]+x]
+    l[gl_Place[0]+y][gl_Place[1]+x] = ' '  # change the position
+    gl_Place[0] = gl_Place[0]+y
+    gl_Place[1] = gl_Place[1]+x  # change the coordinate position of the ' '
     return l
 
 
@@ -113,23 +114,23 @@ while True:
     operaion_List = ['up', 'down', 'left', 'right']
     count = 0  # define the count to calculate steps
     gl_Place = [0, 0]  # initialize location of the space
-    total_List = []  # initialize the matrix
-    total_List = generating(n, total_List)
-    initial_List = copy.deepcopy(total_List)  # save the original matrix
-    total_List = mess(total_List, operaion_List)
-    display(total_List)
+    gl_Total_List = []  # initialize the matrix
+    gl_Total_List = generating(n, gl_Total_List)
+    initial_List = copy.deepcopy(gl_Total_List)  # save the original matrix
+    gl_Total_List = mess(gl_Total_List, operaion_List)
+    display(gl_Total_List)
 
     while True:
         # to judge if invalid operation in followings
-        list_For_Judge = copy.deepcopy(total_List)
-        total_List = operation(translate(operaion_List, bind_Key_List, gl_Place, n),
-                               total_List)  # change the matrix
-        display(total_List)
+        list_For_Judge = copy.deepcopy(gl_Total_List)
+        gl_Total_List = operation(translate(operaion_List, bind_Key_List, gl_Place, n),
+                                  gl_Total_List)  # change the matrix
+        display(gl_Total_List)
         count += 1
-        if list_For_Judge == total_List:
+        if list_For_Judge == gl_Total_List:
             count += -1  # if invalid, cancel the counting step
             print("Invalid Operation!")
-        elif total_List == initial_List:  # to judge if finish
+        elif gl_Total_List == initial_List:  # to judge if finish
             print("Congratulations!", "You finish in", count, "steps.")
             break
 
