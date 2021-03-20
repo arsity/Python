@@ -87,7 +87,7 @@ def operation(op, l):  # move space operation
 
 def mess(a, operaion_List):  # make a random table at start
     import random
-    for i in range(0, 10000):
+    for i in range(0, n**2*100):
         op = random.choice(operaion_List)
         a = operation(op, a)
     return a
