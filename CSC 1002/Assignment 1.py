@@ -90,6 +90,7 @@ def display(a):  # display the table
         print("\n", end="")
 
 
+print('Introduction:\nTo win this game, you need to rearrange the numbers into a sequential order.\nAnd the space should be at the right-bottom corner.')
 while True:
     # determine the size of the table
     while True:
