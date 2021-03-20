@@ -56,18 +56,17 @@ def op_input(operaion_List, bind_Key_List, gl_Place, n):
     return op
 
 
-def operation(op, l, operaion_List):  # move space operation
-    global gl_N
+def operation(op, l, operaion_List, n):  # move space operation
     global gl_Place
     y = 0  # y-axis movement in coordinate
     x = 0  # x-axis movement in coordinate
-    if op == operaion_List[0] and gl_Place[0] != gl_N-1:
+    if op == operaion_List[0] and gl_Place[0] != n-1:
         y = 1
     elif op == operaion_List[1] and gl_Place[0] != 0:
         y = -1
     elif op == operaion_List[2] and gl_Place[1] != 0:
         x = -1
-    elif op == operaion_List[3] and gl_Place[1] != gl_N-1:
+    elif op == operaion_List[3] and gl_Place[1] != n-1:
         x = 1
     l[gl_Place[0]][gl_Place[1]] = l[gl_Place[0]+y][gl_Place[1]+x]
     l[gl_Place[0]+y][gl_Place[1]+x] = ' '  # change the position
@@ -76,11 +75,11 @@ def operation(op, l, operaion_List):  # move space operation
     return l
 
 
-def mess(a, operaion_List):  # make a random table at start
+def mess(a, operaion_List, n):  # make a random table at start
     import random
     for i in range(0, n**2*100):
         op = random.choice(operaion_List)
-        a = operation(op, a, operaion_List)
+        a = operation(op, a, operaion_List, n)
     return a
 
 
@@ -108,14 +107,14 @@ while True:
     gl_Total_List = generate(gl_N, gl_Total_List)
     initial_List = copy.deepcopy(gl_Total_List)  # save the original matrix
     operaion_List = bind_key()
-    gl_Total_List = mess(gl_Total_List, operaion_List)
+    gl_Total_List = mess(gl_Total_List, operaion_List, gl_N)
     display(gl_Total_List)
 
     while True:
         # to judge if invalid operation in followings
         list_For_Judge = copy.deepcopy(gl_Total_List)
         gl_Total_List = operation(op_input(operaion_List, operaion_List, gl_Place, gl_N),
-                                  gl_Total_List, operaion_List)  # change the matrix
+                                  gl_Total_List, operaion_List, gl_N)  # change the matrix
         display(gl_Total_List)
         count += 1
         if list_For_Judge == gl_Total_List:
