@@ -86,7 +86,7 @@ def mess(a, operaion_List, n):  # make a random table at start
 def display(a):  # display the table
     for row in a:
         for column in row:
-            print("%+3s" % (column), end=" ")  # to display on certain position
+            print("%+3s" % column, end=" ")  # to display on certain position
         print("\n", end="")
 
 
