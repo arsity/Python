@@ -41,9 +41,8 @@ def generate(n, total_List):  # generate the matrix in order
     return total_List
 
 
-# translate custom key to standard order
-def translate(operaion_List, bind_Key_List, gl_Place, n):
-    translation = None
+# save custom key to standard order
+def op_input(operaion_List, bind_Key_List, gl_Place, n):
     print('Enter one of (', end=' ')  # print the key can be chosen
     if gl_Place[0] != n-1:
         print('up-', bind_Key_List[0], sep='', end=' ')
@@ -54,29 +53,21 @@ def translate(operaion_List, bind_Key_List, gl_Place, n):
     if gl_Place[1] != n-1:
         print('left-', bind_Key_List[3], sep='', end=' ')
     op = input('): ')
-    if op == bind_Key_List[0]:  # translate the custom key
-        translation = 'up'
-    elif op == bind_Key_List[1]:
-        translation = 'down'
-    elif op == bind_Key_List[2]:
-        translation = 'left'
-    elif op == bind_Key_List[3]:
-        translation = 'right'
-    return translation
+    return op
 
 
-def operation(op, l):  # move space operation
+def operation(op, l, operaion_List):  # move space operation
     global gl_N
     global gl_Place
     y = 0  # y-axis movement in coordinate
     x = 0  # x-axis movement in coordinate
-    if op == 'up' and gl_Place[0] != gl_N-1:
+    if op == operaion_List[0] and gl_Place[0] != gl_N-1:
         y = 1
-    elif op == 'down' and gl_Place[0] != 0:
+    elif op == operaion_List[1] and gl_Place[0] != 0:
         y = -1
-    elif op == 'left' and gl_Place[1] != 0:
+    elif op == operaion_List[2] and gl_Place[1] != 0:
         x = -1
-    elif op == 'right' and gl_Place[1] != gl_N-1:
+    elif op == operaion_List[3] and gl_Place[1] != gl_N-1:
         x = 1
     l[gl_Place[0]][gl_Place[1]] = l[gl_Place[0]+y][gl_Place[1]+x]
     l[gl_Place[0]+y][gl_Place[1]+x] = ' '  # change the position
@@ -89,7 +80,7 @@ def mess(a, operaion_List):  # make a random table at start
     import random
     for i in range(0, n**2*100):
         op = random.choice(operaion_List)
-        a = operation(op, a)
+        a = operation(op, a, operaion_List)
     return a
 
 
@@ -110,21 +101,21 @@ while True:
         print("Please enter an integer from 3 to 10!")
 
     # initialization
-    bind_Key_List = bind_key()
     operaion_List = ['up', 'down', 'left', 'right']
     count = 0  # define the count to calculate steps
     gl_Place = [0, 0]  # initialize location of the space
     gl_Total_List = []  # initialize the matrix
     gl_Total_List = generate(gl_N, gl_Total_List)
     initial_List = copy.deepcopy(gl_Total_List)  # save the original matrix
+    operaion_List = bind_key()
     gl_Total_List = mess(gl_Total_List, operaion_List)
     display(gl_Total_List)
 
     while True:
         # to judge if invalid operation in followings
         list_For_Judge = copy.deepcopy(gl_Total_List)
-        gl_Total_List = operation(translate(operaion_List, bind_Key_List, gl_Place, gl_N),
-                                  gl_Total_List)  # change the matrix
+        gl_Total_List = operation(op_input(operaion_List, operaion_List, gl_Place, gl_N),
+                                  gl_Total_List, operaion_List)  # change the matrix
         display(gl_Total_List)
         count += 1
         if list_For_Judge == gl_Total_List:
