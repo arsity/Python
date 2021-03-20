@@ -42,16 +42,16 @@ def generate(n, total_List):  # generate the matrix in order
 
 
 # save custom key to standard order
-def op_input(operaion_List, bind_Key_List, gl_Place, n):
+def op_input(operaion_List, gl_Place, n):
     print('Enter one of (', end=' ')  # print the key can be chosen
     if gl_Place[0] != n-1:
-        print('up-', bind_Key_List[0], sep='', end=' ')
+        print('up-', operaion_List[0], sep='', end=' ')
     if gl_Place[0] != 0:
-        print('down-', bind_Key_List[1], sep='', end=' ')
+        print('down-', operaion_List[1], sep='', end=' ')
     if gl_Place[1] != 0:
-        print('right-', bind_Key_List[2], sep='', end=' ')
+        print('right-', operaion_List[2], sep='', end=' ')
     if gl_Place[1] != n-1:
-        print('left-', bind_Key_List[3], sep='', end=' ')
+        print('left-', operaion_List[3], sep='', end=' ')
     op = input('): ')
     return op
 
@@ -113,7 +113,7 @@ while True:
     while True:
         # to judge if invalid operation in followings
         list_For_Judge = copy.deepcopy(gl_Total_List)
-        gl_Total_List = operation(op_input(operaion_List, operaion_List, gl_Place, gl_N),
+        gl_Total_List = operation(op_input(operaion_List, gl_Place, gl_N),
                                   gl_Total_List, operaion_List, gl_N)  # change the matrix
         display(gl_Total_List)
         count += 1
