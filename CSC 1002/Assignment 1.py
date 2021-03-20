@@ -1,5 +1,6 @@
 import copy  # for deep copy
 import string  # for ascii letter list
+import random  # for matrix randomization
 
 
 def integer_test(n):  # test an integer from 3 to 10
@@ -76,7 +77,6 @@ def operation(op, l, operaion_List, n):  # move space operation
 
 
 def mess(a, operaion_List, n):  # make a random table at start
-    import random
     for i in range(0, n**2*100):
         op = random.choice(operaion_List)
         a = operation(op, a, operaion_List, n)
