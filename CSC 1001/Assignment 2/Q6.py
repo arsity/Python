@@ -1,8 +1,7 @@
 def initialize():
     matrix = []
-    matrix.append(list('Q'*8))
     for n in range(0, 8):
-        matrix.append(list(' '*8))
+        matrix.append(list('Q'+' '*7))
     return matrix
 
 
