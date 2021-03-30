@@ -1,13 +1,16 @@
 def initialize():
-    matrix = []
-    for n in range(0, 8):
-        matrix.append(list('Q'+' '*7))
-    return matrix
+    queenMatrix = []
+    statusMatrix = []
+    for row in range(0, 8):
+        queenMatrix.append(list(' '*8))
+    for row in range(0, 8):
+        statusMatrix.append(list('0'*8))
+    return queenMatrix, statusMatrix
 
 
-def display(matrix):
+def display(queenMatrix):
     count = 1
-    for row in matrix:
+    for row in queenMatrix:
         print('|', end='')
         for column in row:
             if count % 8 == 0:
@@ -18,8 +21,9 @@ def display(matrix):
 
 
 def main():
-    matrix = initialize()
-    display(matrix)
+    queenMatrix, statusMatrix = initialize()
+
+    display(queenMatrix)
 
 
 main()
