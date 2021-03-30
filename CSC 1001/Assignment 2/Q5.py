@@ -1,14 +1,14 @@
-def operation(lockerList):
-    for student in range(1, 101):
-        for lockerNumber in range(student-1, 100, student):
-            lockerList[lockerNumber] = not lockerList[lockerNumber]
-    return lockerList
-
-
 def initialize():
     lockerList = []
     for counts in range(0, 100):
         lockerList.append(False)
+    return lockerList
+
+
+def operation(lockerList):
+    for student in range(1, 101):
+        for lockerNumber in range(student-1, 100, student):
+            lockerList[lockerNumber] = not lockerList[lockerNumber]
     return lockerList
 
 
