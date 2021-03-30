@@ -17,5 +17,9 @@ def display():
             count += 1
 
 
-matrix = initialize()
-display()
+def main():
+    matrix = initialize()
+    display()
+
+
+main()
