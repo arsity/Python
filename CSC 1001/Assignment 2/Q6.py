@@ -5,7 +5,7 @@ def initialize():
     return matrix
 
 
-def display():
+def display(matrix):
     count = 1
     for row in matrix:
         print('|', end='')
@@ -19,7 +19,7 @@ def display():
 
 def main():
     matrix = initialize()
-    display()
+    display(matrix)
 
 
 main()
