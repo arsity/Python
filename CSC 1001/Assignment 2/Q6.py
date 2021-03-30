@@ -10,6 +10,7 @@ def initialize(n):
 
 def add(row, column, queenMatrix, statusMatrix, n):
     queenMatrix[row][column] = 'Q'
+    
     for i in range(0, n):
         statusMatrix[row][i] = '1'
         statusMatrix[i][column] = '1'
@@ -19,7 +20,7 @@ def add(row, column, queenMatrix, statusMatrix, n):
     ne_Num = min(row, n-1-column)
     sw_Num = n-1-max(row, n-1-column)
 
-    
+
 
 
 def display(queenMatrix, n):
