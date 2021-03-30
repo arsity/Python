@@ -5,7 +5,25 @@ def prime_Test(n):
     return True
 
 
-def display():
+def find():
+    emirpList = []
+    count = 0
+    num = 11
+    while count < 100:
+        reversenum = int(str(num)[::-1])
+        if num == reversenum:
+            num += 1
+            continue
+        if prime_Test(num) and prime_Test(reversenum) and (num not in emirpList):
+            emirpList.append(num)
+            emirpList.append(reversenum)
+            count += 2
+        num += 1
+    emirpList.sort()
+    return emirpList
+
+
+def display(emirpList):
     count = 1
     for item in emirpList:
         if count % 10 == 0:
@@ -15,18 +33,8 @@ def display():
         count += 1
 
 
-count = 0
-num = 11
-emirpList = []
-while count < 100:
-    reversenum = int(str(num)[::-1])
-    if num == reversenum:
-        num += 1
-        continue
-    if prime_Test(num) and prime_Test(reversenum) and (num not in emirpList):
-        emirpList.append(num)
-        emirpList.append(reversenum)
-        count += 2
-    num += 1
-emirpList.sort()
-display()
+def main():
+    display(emirpList=find())
+
+
+main()

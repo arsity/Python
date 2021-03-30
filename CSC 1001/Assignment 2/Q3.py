@@ -6,7 +6,7 @@ def userInput():
         print('Please input a positive integer having digits from 13 to 16!')
 
 
-def sumOfOddPlace():
+def sumOfOddPlace(cardNumber):
     sum = 0
     for position in range(0, len(cardNumber), 2):
         sum = sum+int(cardNumber[position])
@@ -20,21 +20,25 @@ def getDigit(initialDigit):
     return 2*initialDigit % 10+1
 
 
-def sumOfDoubleEvenPlace():
+def sumOfDoubleEvenPlace(cardNumber):
     sum = 0
     for position in range(1, len(cardNumber), 2):
         sum = sum+getDigit(cardNumber[position])
     return sum
 
 
-def isValid():
-    if (sumOfDoubleEvenPlace()+sumOfOddPlace()) % 10 == 0:
+def isValid(cardNumber):
+    if (sumOfDoubleEvenPlace(cardNumber)+sumOfOddPlace(cardNumber)) % 10 == 0:
         return True
     return False
 
 
-cardNumber = userInput()
-if isValid():
-    print(cardNumber[::-1], 'is valid.')
-else:
-    print(cardNumber[::-1], 'is invalid.')
+def main():
+    cardNumber = userInput()
+    if isValid(cardNumber):
+        print(cardNumber[::-1], 'is valid.')
+    else:
+        print(cardNumber[::-1], 'is invalid.')
+
+
+main()

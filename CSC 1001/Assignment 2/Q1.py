@@ -20,4 +20,8 @@ def approximate(n):
         lastGuess = nextGuess
 
 
-print(approximate(initial_Input()))
+def main():
+    print('%.3f' % approximate(initial_Input()))
+
+
+main()
