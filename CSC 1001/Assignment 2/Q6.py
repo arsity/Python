@@ -33,8 +33,8 @@ def add(row, column, queenMatrix, statusMatrix, n):
 
 def operation(queenMatrix, statusMatrix, n):
     initial_StatusMatrix = statusMatrix
-    save_QueenMatrix = []
-    save_StatusMatrix = []
+    save_QueenMatrix = list('N'*n)
+    save_StatusMatrix = list('N'*n)
     success_QueenMatrix = []
     row = 0
     while True:
@@ -56,10 +56,9 @@ def operation(queenMatrix, statusMatrix, n):
             mark_Column = queenMatrix[0].index('Q')
             if mark_Column == n-1:
                 return success_QueenMatrix
-            else:
-                statusMatrix = initial_StatusMatrix
-                for i in range(mark_Column+1):
-                    statusMatrix[0][i] = '2'
+            statusMatrix = initial_StatusMatrix
+            for i in range(mark_Column+1):
+                statusMatrix[0][i] = '2'
 
 
 def display(queenMatrix, n):
