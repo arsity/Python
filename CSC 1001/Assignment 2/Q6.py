@@ -32,14 +32,34 @@ def add(row, column, queenMatrix, statusMatrix, n):
 
 
 def operation(queenMatrix, statusMatrix, n):
-    old_QueenMatrix = []
-    old_StatusMatrix = []
-    for row in range(n-1):
-        column_Index = statusMatrix[n-1].index('0')
-        queenMatrix, statusMatrix = add(
-            n-1, column_Index, queenMatrix, statusMatrix, n)
-        old_QueenMatrix[row] = copy.deepcopy(queenMatrix)
-        old_StatusMatrix[row] = copy.deepcopy(statusMatrix)
+    initial_StatusMatrix = statusMatrix
+    save_QueenMatrix = []
+    save_StatusMatrix = []
+    success_QueenMatrix = []
+    row = 0
+    while True:
+        try:
+            column_Index = statusMatrix[row].index('0')
+            queenMatrix, statusMatrix = add(
+                row, column_Index, queenMatrix, statusMatrix, n)
+            save_QueenMatrix[row] = copy.deepcopy(queenMatrix)
+            save_StatusMatrix[row] = copy.deepcopy(statusMatrix)
+            row += 1
+        except:
+            row -= 2
+            statusMatrix = copy.deepcopy(save_StatusMatrix[row])
+            queenMatrix = copy.deepcopy(save_QueenMatrix[row])
+            column_Index = statusMatrix[row].index('0')
+            statusMatrix[row][column_Index] = '2'
+        if row > n-1:
+            success_QueenMatrix.append(queenMatrix)
+            mark_Column = queenMatrix[0].index('Q')
+            if mark_Column == n-1:
+                return success_QueenMatrix
+            else:
+                statusMatrix = initial_StatusMatrix
+                for i in range(mark_Column+1):
+                    statusMatrix[0][i] = '2'
 
 
 def display(queenMatrix, n):
@@ -56,8 +76,9 @@ def display(queenMatrix, n):
 
 def main(n):
     queenMatrix, statusMatrix = initialize(n)
+    success_List = operation(queenMatrix, statusMatrix, n)
+    for i in success_List:
+        display(i, n)
 
-    display(queenMatrix, n)
 
-
-main(8)
+main(4)
