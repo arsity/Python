@@ -11,6 +11,14 @@ def initialize(n):
     return queenMatrix, statusMatrix
 
 
+def find(a, b):
+    try:
+        c = a.index(b)
+        return c
+    except:
+        return -1
+
+
 def add(row, column, queenMatrix, statusMatrix, n):
     queenMatrix[row][column] = 'Q'
 
@@ -37,22 +45,19 @@ def operation(queenMatrix, statusMatrix, n):
     save_StatusMatrix = list('N'*n)
     success_QueenMatrix = []
     row = 0
-    retry_Attempt = 0
+    
     while True:
-        try:
-            column_Index = statusMatrix[row].index(
-                '0', statusMatrix[row].index('0')+retry_Attempt)
-            retry_Attempt = 0
+        column_Index = find(statusMatrix[row], '0')
+        if column_Index != -1:
             queenMatrix, statusMatrix = add(
                 row, column_Index, queenMatrix, statusMatrix, n)
             save_QueenMatrix[row] = copy.deepcopy(queenMatrix)
             save_StatusMatrix[row] = copy.deepcopy(statusMatrix)
             row += 1
-        except:
+        else:
             row -= 2
             statusMatrix = copy.deepcopy(save_StatusMatrix[row])
             queenMatrix = copy.deepcopy(save_QueenMatrix[row])
-            retry_Attempt += 1
         if row > n-1:
             success_QueenMatrix.append(queenMatrix)
             mark_Column = queenMatrix[0].index('Q')
