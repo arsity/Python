@@ -37,9 +37,12 @@ def operation(queenMatrix, statusMatrix, n):
     save_StatusMatrix = list('N'*n)
     success_QueenMatrix = []
     row = 0
+    retry_Attempt = 0
     while True:
         try:
-            column_Index = statusMatrix[row].index('0')
+            column_Index = statusMatrix[row].index(
+                '0', statusMatrix[row].index('0')+retry_Attempt)
+            retry_Attempt = 0
             queenMatrix, statusMatrix = add(
                 row, column_Index, queenMatrix, statusMatrix, n)
             save_QueenMatrix[row] = copy.deepcopy(queenMatrix)
@@ -49,8 +52,7 @@ def operation(queenMatrix, statusMatrix, n):
             row -= 2
             statusMatrix = copy.deepcopy(save_StatusMatrix[row])
             queenMatrix = copy.deepcopy(save_QueenMatrix[row])
-            column_Index = statusMatrix[row].index('0')
-            statusMatrix[row][column_Index] = '2'
+            retry_Attempt += 1
         if row > n-1:
             success_QueenMatrix.append(queenMatrix)
             mark_Column = queenMatrix[0].index('Q')

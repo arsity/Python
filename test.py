@@ -1,5 +1,2 @@
-sum = 0
-for y in range(1, 5):
-    for x in range(1, 3):
-        sum = sum+(y-2.8125)**2*(x+y)/32
-print(sum)
+test=[1,231,432,63,6,7,8,8,4,4,4,7,3,2,34,34]
+a=test.in
