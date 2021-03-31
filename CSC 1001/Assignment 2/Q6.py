@@ -1,9 +1,12 @@
+import copy
+
+
 def initialize(n):
     queenMatrix = []
     statusMatrix = []
-    for row in range(0, n):
+    for row in range(n):
         queenMatrix.append(list(' '*n))
-    for row in range(0, n):
+    for row in range(n):
         statusMatrix.append(list('0'*n))
     return queenMatrix, statusMatrix
 
@@ -11,7 +14,7 @@ def initialize(n):
 def add(row, column, queenMatrix, statusMatrix, n):
     queenMatrix[row][column] = 'Q'
 
-    for i in range(0, n):
+    for i in range(n):
         statusMatrix[row][i] = '1'
         statusMatrix[i][column] = '1'
 
@@ -26,6 +29,17 @@ def add(row, column, queenMatrix, statusMatrix, n):
         statusMatrix[row-i][column+i] = '1'
 
     return queenMatrix, statusMatrix
+
+
+def operation(queenMatrix, statusMatrix, n):
+    old_QueenMatrix = []
+    old_StatusMatrix = []
+    for row in range(n-1):
+        column_Index = statusMatrix[n-1].index('0')
+        queenMatrix, statusMatrix = add(
+            n-1, column_Index, queenMatrix, statusMatrix, n)
+        old_QueenMatrix[row] = copy.deepcopy(queenMatrix)
+        old_StatusMatrix[row] = copy.deepcopy(statusMatrix)
 
 
 def display(queenMatrix, n):
