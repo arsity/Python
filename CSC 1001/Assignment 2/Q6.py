@@ -11,9 +11,9 @@ def initialize(n):
     return queenMatrix, statusMatrix
 
 
-def find(a, b):
+def find(a, b, start=0):
     try:
-        c = a.index(b)
+        c = a.index(b, start)
         return c
     except:
         return -1
@@ -40,30 +40,33 @@ def add(row, column, queenMatrix, statusMatrix, n):
 
 
 def operation(queenMatrix, statusMatrix, n):
-    initial_StatusMatrix = statusMatrix
     save_QueenMatrix = list('N'*n)
-    save_StatusMatrix = list('N'*n)
+    save_StatusMatrix = list('N'*(n+1))
+    save_StatusMatrix[0] = copy.deepcopy(statusMatrix)
     success_QueenMatrix = []
     row = 0
-    
+
     while True:
         column_Index = find(statusMatrix[row], '0')
         if column_Index != -1:
             queenMatrix, statusMatrix = add(
                 row, column_Index, queenMatrix, statusMatrix, n)
             save_QueenMatrix[row] = copy.deepcopy(queenMatrix)
-            save_StatusMatrix[row] = copy.deepcopy(statusMatrix)
+            save_StatusMatrix[row+1] = copy.deepcopy(statusMatrix)
             row += 1
         else:
-            row -= 2
+            row -= 1
             statusMatrix = copy.deepcopy(save_StatusMatrix[row])
+            queenMatrix = copy.deepcopy(save_QueenMatrix[row])
+            for i in range(find(queenMatrix[row], 'Q')+1):
+                statusMatrix[row][i] = '2'
             queenMatrix = copy.deepcopy(save_QueenMatrix[row])
         if row > n-1:
             success_QueenMatrix.append(queenMatrix)
             mark_Column = queenMatrix[0].index('Q')
             if mark_Column == n-1:
                 return success_QueenMatrix
-            statusMatrix = initial_StatusMatrix
+            statusMatrix = copy.deepcopy(save_StatusMatrix[0])
             for i in range(mark_Column+1):
                 statusMatrix[0][i] = '2'
 
@@ -85,6 +88,7 @@ def main(n):
     success_List = operation(queenMatrix, statusMatrix, n)
     for i in success_List:
         display(i, n)
+    print('There are', success_List.count(), 'solutions in total.')
 
 
 main(4)
