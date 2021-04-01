@@ -1,2 +1,6 @@
-test=[1,231,432,63,6,7,8,8,4,4,4,7,3,2,34,34]
-a=test.re
+sum = 0
+for x in range(0, 4):
+    for y in range(0, 3):
+        if y <= x:
+            sum = sum+(x+1)*(4-x)*(y+1)*(3-y)
+print(sum)

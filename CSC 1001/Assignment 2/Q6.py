@@ -40,8 +40,9 @@ def add(row, column, queenMatrix, statusMatrix, n):
 
 
 def operation(queenMatrix, statusMatrix, n):
-    save_QueenMatrix = list('N'*n)
+    save_QueenMatrix = list('N'*(n+1))
     save_StatusMatrix = list('N'*(n+1))
+    save_QueenMatrix[0] = copy.deepcopy(queenMatrix)
     save_StatusMatrix[0] = copy.deepcopy(statusMatrix)
     success_QueenMatrix = []
     row = 0
@@ -51,24 +52,29 @@ def operation(queenMatrix, statusMatrix, n):
         if column_Index != -1:
             queenMatrix, statusMatrix = add(
                 row, column_Index, queenMatrix, statusMatrix, n)
-            save_QueenMatrix[row] = copy.deepcopy(queenMatrix)
+            save_QueenMatrix[row+1] = copy.deepcopy(queenMatrix)
             save_StatusMatrix[row+1] = copy.deepcopy(statusMatrix)
             row += 1
         else:
             row -= 1
             statusMatrix = copy.deepcopy(save_StatusMatrix[row])
-            queenMatrix = copy.deepcopy(save_QueenMatrix[row])
             for i in range(find(queenMatrix[row], 'Q')+1):
                 statusMatrix[row][i] = '2'
             queenMatrix = copy.deepcopy(save_QueenMatrix[row])
-        if row > n-1:
+        if row > n-1 or statusMatrix[0] == list('2'*n):
             success_QueenMatrix.append(queenMatrix)
-            mark_Column = queenMatrix[0].index('Q')
-            if mark_Column == n-1:
+            mark_Column = find(queenMatrix[0], 'Q')
+            if mark_Column in [-1, n-1]:
+                success_QueenMatrix[-1] = ''
                 return success_QueenMatrix
             statusMatrix = copy.deepcopy(save_StatusMatrix[0])
-            for i in range(mark_Column+1):
-                statusMatrix[0][i] = '2'
+            for i in range(n):
+                mark_Column = find(queenMatrix[i], 'Q')
+                for a in range(mark_Column):
+                    queenMatrix[i][a] = '2'
+            queenMatrix[n-1][mark_Column] = '2'
+            queenMatrix = copy.deepcopy(save_QueenMatrix[0])
+            row = 0
 
 
 def display(queenMatrix, n):
@@ -88,7 +94,8 @@ def main(n):
     success_List = operation(queenMatrix, statusMatrix, n)
     for i in success_List:
         display(i, n)
-    print('There are', success_List.count(), 'solutions in total.')
+        print()
+    print('There are', len(success_List)-1, 'solutions in total.')
 
 
 main(4)
