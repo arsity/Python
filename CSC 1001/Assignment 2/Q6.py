@@ -61,20 +61,15 @@ def operation(queenMatrix, statusMatrix, n):
             for i in range(find(queenMatrix[row], 'Q')+1):
                 statusMatrix[row][i] = '2'
             queenMatrix = copy.deepcopy(save_QueenMatrix[row])
-        if row > n-1 or statusMatrix[0] == list('2'*n):
-            success_QueenMatrix.append(queenMatrix)
-            mark_Column = find(queenMatrix[0], 'Q')
-            if mark_Column in [-1, n-1]:
-                success_QueenMatrix[-1] = ''
-                return success_QueenMatrix
-            statusMatrix = copy.deepcopy(save_StatusMatrix[0])
-            for i in range(n):
-                mark_Column = find(queenMatrix[i], 'Q')
-                for a in range(mark_Column):
-                    queenMatrix[i][a] = '2'
-            queenMatrix[n-1][mark_Column] = '2'
-            queenMatrix = copy.deepcopy(save_QueenMatrix[0])
-            row = 0
+        if row > n-1:
+            success_QueenMatrix.append(copy.deepcopy(queenMatrix))
+            row -= 1
+            statusMatrix = copy.deepcopy(save_StatusMatrix[row])
+            for i in range(find(queenMatrix[row], 'Q')+1):
+                statusMatrix[row][i] = '2'
+            queenMatrix = copy.deepcopy(save_QueenMatrix[row])
+        if statusMatrix[0] == list('2'*n):
+            return success_QueenMatrix
 
 
 def display(queenMatrix, n):
@@ -95,7 +90,7 @@ def main(n):
     for i in success_List:
         display(i, n)
         print()
-    print('There are', len(success_List)-1, 'solutions in total.')
+    print('There are', len(success_List), 'solutions in total.')
 
 
-main(4)
+main(8)
