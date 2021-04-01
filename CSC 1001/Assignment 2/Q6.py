@@ -39,6 +39,15 @@ def add(row, column, queenMatrix, statusMatrix, n):
     return queenMatrix, statusMatrix
 
 
+def in_else(row, save_StatusMatrix, save_QueenMatrix, queenMatrix):
+    row -= 1
+    statusMatrix = copy.deepcopy(save_StatusMatrix[row])
+    for i in range(find(queenMatrix[row], 'Q')+1):
+        statusMatrix[row][i] = '2'
+    queenMatrix = copy.deepcopy(save_QueenMatrix[row])
+    return row, statusMatrix, queenMatrix
+
+
 def operation(queenMatrix, statusMatrix, n):
     save_QueenMatrix = list('N'*(n+1))
     save_StatusMatrix = list('N'*(n+1))
@@ -56,18 +65,12 @@ def operation(queenMatrix, statusMatrix, n):
             save_StatusMatrix[row+1] = copy.deepcopy(statusMatrix)
             row += 1
         else:
-            row -= 1
-            statusMatrix = copy.deepcopy(save_StatusMatrix[row])
-            for i in range(find(queenMatrix[row], 'Q')+1):
-                statusMatrix[row][i] = '2'
-            queenMatrix = copy.deepcopy(save_QueenMatrix[row])
+            row, statusMatrix, queenMatrix = in_else(
+                row, save_StatusMatrix, save_QueenMatrix, queenMatrix)
         if row > n-1:
             success_QueenMatrix.append(copy.deepcopy(queenMatrix))
-            row -= 1
-            statusMatrix = copy.deepcopy(save_StatusMatrix[row])
-            for i in range(find(queenMatrix[row], 'Q')+1):
-                statusMatrix[row][i] = '2'
-            queenMatrix = copy.deepcopy(save_QueenMatrix[row])
+            row, statusMatrix, queenMatrix = in_else(
+                row, save_StatusMatrix, save_QueenMatrix, queenMatrix)
         if statusMatrix[0] == list('2'*n):
             return success_QueenMatrix
 
