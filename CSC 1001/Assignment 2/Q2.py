@@ -9,15 +9,13 @@ def find():
     emirpList = []
     count = 0
     num = 11
-    while count < 100:
+    while len(emirpList) < 100:
         reversenum = int(str(num)[::-1])
         if num == reversenum:
             num += 1
             continue
-        if prime_Test(num) and prime_Test(reversenum) and (num not in emirpList):
+        if prime_Test(num) and prime_Test(reversenum):
             emirpList.append(num)
-            emirpList.append(reversenum)
-            count += 2
         num += 1
     emirpList.sort()
     return emirpList
