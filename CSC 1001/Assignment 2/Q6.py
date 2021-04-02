@@ -39,7 +39,7 @@ def add(row, column, queenMatrix, statusMatrix, n):
     return queenMatrix, statusMatrix
 
 
-def in_else(row, save_StatusMatrix, save_QueenMatrix, queenMatrix):
+def traceback(row, save_StatusMatrix, save_QueenMatrix, queenMatrix):
     row -= 1
     statusMatrix = copy.deepcopy(save_StatusMatrix[row])
     for i in range(find(queenMatrix[row], 'Q')+1):
@@ -65,11 +65,11 @@ def operation(queenMatrix, statusMatrix, n):
             save_StatusMatrix[row+1] = copy.deepcopy(statusMatrix)
             row += 1
         else:
-            row, statusMatrix, queenMatrix = in_else(
+            row, statusMatrix, queenMatrix = traceback(
                 row, save_StatusMatrix, save_QueenMatrix, queenMatrix)
         if row > n-1:
             success_QueenMatrix.append(copy.deepcopy(queenMatrix))
-            row, statusMatrix, queenMatrix = in_else(
+            row, statusMatrix, queenMatrix = traceback(
                 row, save_StatusMatrix, save_QueenMatrix, queenMatrix)
         if statusMatrix[0] == list('2'*n):
             return success_QueenMatrix
