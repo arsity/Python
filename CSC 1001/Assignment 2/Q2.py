@@ -31,7 +31,7 @@ def display(emirpList):
 
 
 def main(n):
-    display(emirpList=find(n))
+    display(find(n))
 
 
 main(100)
