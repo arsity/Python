@@ -5,11 +5,10 @@ def prime_Test(n):
     return True
 
 
-def find():
+def find(n):
     emirpList = []
-    count = 0
     num = 11
-    while len(emirpList) < 100:
+    while len(emirpList) < n:
         reversenum = int(str(num)[::-1])
         if num == reversenum:
             num += 1
@@ -31,8 +30,8 @@ def display(emirpList):
         count += 1
 
 
-def main():
-    display(emirpList=find())
+def main(n):
+    display(emirpList=find(n))
 
 
-main()
+main(100)
