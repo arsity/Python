@@ -4,14 +4,14 @@ class Flower:
         self.number = number
         self.price = price
 
-    def setName(self):
+    def setName(self, name):
         name = input('Please enter the name of the flower: ')
         self.name = name
 
     def name(self):
         return self.name
 
-    def setNumber(self):
+    def setNumber(self, number):
         while True:
             number = input('Please enter the number of the flower: ')
             if number.isdecimal() and int(number) >= 0:
@@ -23,7 +23,7 @@ class Flower:
     def number(self):
         return self.number
 
-    def setPrice(self):
+    def setPrice(self, price):
         while True:
             price = input('Please enter the price of the flower: ')
             try:
@@ -38,3 +38,15 @@ class Flower:
 
     def price(self):
         return self.price
+
+
+def main():
+    a = Flower()
+    print(a.name(), a.number(), a.price())
+    a.setName('Sunflower')
+    a.setNumber(99)
+    a.setPrice(9.5)
+    print(a.name(), a.number(), a.price())
+
+
+main()
