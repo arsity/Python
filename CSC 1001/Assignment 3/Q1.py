@@ -1,32 +1,32 @@
 class flower:
     def __init__(self) -> None:
-        self.name = 'rose'
-        self.number = 3
-        self.price = 10.00
+        self.Name = 'rose'
+        self.Number = 3
+        self.Price = 10.00
 
     def name(self):
-        print(self.name)
+        return self.Name
 
     def setName(self):
         while True:
             name = input('Please enter the name of flower: ')
             if len(name) != 0:
-                self.name = name
+                self.Name = name
                 break
 
     def number(self):
-        print(self.number)
+        return self.Number
 
     def setNumber(self):
         while True:
             number = input('Please enter the number of flower: ')
             if number.isnumeric() and int(number) >= 0:
-                self.number = int(number)
+                self.Number = int(number)
                 break
             print('Please enter a non-negative integer.')
 
     def price(self):
-        print(self.price)
+        return self.Price
 
     def setPrice(self):
         while True:
@@ -36,7 +36,7 @@ class flower:
                 if price <= 0:
                     print('Please enter a postive float.')
                     continue
-                self.price = price
+                self.Price = price
                 break
             except:
                 print('Please enter a positive float.')
@@ -44,15 +44,11 @@ class flower:
 
 def main():
     a = flower()
-    a.name()
-    a.number()
-    a.price()
+    print(a.name(), a.number(), a.price())
     a.setName()
     a.setNumber()
     a.setPrice()
-    a.name()
-    a.number()
-    a.price()
+    print(a.name(), a.number(), a.price())
 
 
 main()
