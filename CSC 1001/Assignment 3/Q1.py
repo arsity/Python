@@ -1,52 +1,58 @@
-class Flower:
-    def __init__(self, name='rose', number=1, price=10.00):
-        self.name = name
-        self.number = number
-        self.price = price
-
-    def setName(self, name):
-        name = input('Please enter the name of the flower: ')
-        self.name = name
+class flower:
+    def __init__(self) -> None:
+        self.name = 'rose'
+        self.number = 3
+        self.price = 10.00
 
     def name(self):
-        return self.name
+        print(self.name)
 
-    def setNumber(self, number):
+    def setName(self):
         while True:
-            number = input('Please enter the number of the flower: ')
-            if number.isdecimal() and int(number) >= 0:
-                self.number = int(number)
+            name = input('Please enter the name of flower: ')
+            if len(name) != 0:
+                self.name = name
                 break
-            else:
-                print('Please input a non-negative integer.')
 
     def number(self):
-        return self.number
+        print(self.number)
 
-    def setPrice(self, price):
+    def setNumber(self):
         while True:
-            price = input('Please enter the price of the flower: ')
-            try:
-                price = float(price)
-                if float < 0:
-                    print('Please enter a non-negative float.')
-                    continue
-                else:
-                    self.price = price
-            except:
-                print('Please enter a non-negative float.')
+            number = input('Please enter the number of flower: ')
+            if number.isnumeric() and int(number) >= 0:
+                self.number = int(number)
+                break
+            print('Please enter a non-negative integer.')
 
     def price(self):
-        return self.price
+        print(self.price)
+
+    def setPrice(self):
+        while True:
+            price = input('Please enter the price of flower: ')
+            try:
+                price = float(price)
+                if price <= 0:
+                    print('Please enter a postive float.')
+                    continue
+                self.price = price
+                break
+            except:
+                print('Please enter a positive float.')
 
 
 def main():
-    a = Flower()
-    print(a.name(), a.number(), a.price())
-    a.setName('Sunflower')
-    a.setNumber(99)
-    a.setPrice(9.5)
-    print(a.name(), a.number(), a.price())
+    a = flower()
+    a.name()
+    a.number()
+    a.price()
+    a.setName()
+    a.setNumber()
+    a.setPrice()
+    a.name()
+    a.number()
+    a.price()
 
 
 main()
