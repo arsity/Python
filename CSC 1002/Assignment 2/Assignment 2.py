@@ -317,7 +317,7 @@ def direction(direction: str):
         pointer = 'Right'
 
 
-def game():
+def repeat():
     global locationList
     global gl_head
     global pointer
@@ -357,11 +357,11 @@ def game():
         turtle.update()
     else:
         turtle.update()
-        turtle.ontimer(game, 300)
+        turtle.ontimer(repeat, 300)
 
 
-def main():
-    initialization()
+def game(a, b):
+    turtle.onscreenclick(None)
     fruit()
     turtle.listen()
     turtle.onkey(lambda: direction('Up'), 'Up')
@@ -370,9 +370,14 @@ def main():
     turtle.onkey(lambda: direction('Left'), 'Left')
     # turtle.onkey(, 'Space')
     eatfruit()
-    game()
+    repeat()
     # catch()
     turtle.mainloop()
+
+
+def main():
+    initialization()
+    turtle.onscreenclick(game)
 
 
 main()
