@@ -372,12 +372,12 @@ def game(a, b):
     eatfruit()
     repeat()
     # catch()
-    turtle.mainloop()
+
 
 
 def main():
     initialization()
     turtle.onscreenclick(game)
-
+    turtle.mainloop()
 
 main()
