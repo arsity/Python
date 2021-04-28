@@ -59,6 +59,9 @@ def initialization():
     global pointer
     pointer = 'Right'
 
+    global snakeLength
+    snakeLength = 1
+
     global collision
     collision = 0
 
@@ -75,51 +78,131 @@ def initialization():
 
 
 def fruit():
-    f1 = turtle.Turtle(visible=False)
-    f2 = turtle.Turtle(visible=False)
-    f3 = turtle.Turtle(visible=False)
-    f4 = turtle.Turtle(visible=False)
-    f5 = turtle.Turtle(visible=False)
-    f6 = turtle.Turtle(visible=False)
-    f7 = turtle.Turtle(visible=False)
-    f8 = turtle.Turtle(visible=False)
-    f9 = turtle.Turtle(visible=False)
+    global gl_f1
+    global gl_f2
+    global gl_f3
+    global gl_f4
+    global gl_f5
+    global gl_f6
+    global gl_f7
+    global gl_f8
+    global gl_f9
 
-    f1.penup()
-    f2.penup()
-    f3.penup()
-    f4.penup()
-    f5.penup()
-    f6.penup()
-    f7.penup()
-    f8.penup()
-    f9.penup()
+    gl_f1 = turtle.Turtle(visible=False)
+    gl_f2 = turtle.Turtle(visible=False)
+    gl_f3 = turtle.Turtle(visible=False)
+    gl_f4 = turtle.Turtle(visible=False)
+    gl_f5 = turtle.Turtle(visible=False)
+    gl_f6 = turtle.Turtle(visible=False)
+    gl_f7 = turtle.Turtle(visible=False)
+    gl_f8 = turtle.Turtle(visible=False)
+    gl_f9 = turtle.Turtle(visible=False)
 
-    global fruitList
-    fruitList = []
-    for _ in range(9):
-        coordinate = (20*random.randint(-12, 12), 20*random.randint(-14, 10))
-        fruitList.append(coordinate)
+    gl_f1.penup()
+    gl_f2.penup()
+    gl_f3.penup()
+    gl_f4.penup()
+    gl_f5.penup()
+    gl_f6.penup()
+    gl_f7.penup()
+    gl_f8.penup()
+    gl_f9.penup()
 
-    f1.goto(fruitList[0])
-    f2.goto(fruitList[1])
-    f3.goto(fruitList[2])
-    f4.goto(fruitList[3])
-    f5.goto(fruitList[4])
-    f6.goto(fruitList[5])
-    f7.goto(fruitList[6])
-    f8.goto(fruitList[7])
-    f9.goto(fruitList[8])
+    global fruitDic
+    fruitDic = {}
 
-    f1.write('1', align='center', font=('Arial', 12, 'normal'))
-    f2.write('2', align='center', font=('Arial', 12, 'normal'))
-    f3.write('3', align='center', font=('Arial', 12, 'normal'))
-    f4.write('4', align='center', font=('Arial', 12, 'normal'))
-    f5.write('5', align='center', font=('Arial', 12, 'normal'))
-    f6.write('6', align='center', font=('Arial', 12, 'normal'))
-    f7.write('7', align='center', font=('Arial', 12, 'normal'))
-    f8.write('8', align='center', font=('Arial', 12, 'normal'))
-    f9.write('9', align='center', font=('Arial', 12, 'normal'))
+    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    gl_f1.goto(coordinate)
+    fruitDic[coordinate] = 'f1'
+
+    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    gl_f2.goto(coordinate)
+    fruitDic[coordinate] = 'f2'
+
+    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    gl_f3.goto(coordinate)
+    fruitDic[coordinate] = 'f3'
+
+    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    gl_f4.goto(coordinate)
+    fruitDic[coordinate] = 'f4'
+
+    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    gl_f5.goto(coordinate)
+    fruitDic[coordinate] = 'f5'
+
+    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    gl_f6.goto(coordinate)
+    fruitDic[coordinate] = 'f6'
+
+    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    gl_f7.goto(coordinate)
+    fruitDic[coordinate] = 'f7'
+
+    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    gl_f8.goto(coordinate)
+    fruitDic[coordinate] = 'f8'
+
+    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    gl_f9.goto(coordinate)
+    fruitDic[coordinate] = 'f9'
+
+    gl_f1.write('1', align='center', font=('Arial', 12, 'normal'))
+    gl_f2.write('2', align='center', font=('Arial', 12, 'normal'))
+    gl_f3.write('3', align='center', font=('Arial', 12, 'normal'))
+    gl_f4.write('4', align='center', font=('Arial', 12, 'normal'))
+    gl_f5.write('5', align='center', font=('Arial', 12, 'normal'))
+    gl_f6.write('6', align='center', font=('Arial', 12, 'normal'))
+    gl_f7.write('7', align='center', font=('Arial', 12, 'normal'))
+    gl_f8.write('8', align='center', font=('Arial', 12, 'normal'))
+    gl_f9.write('9', align='center', font=('Arial', 12, 'normal'))
+
+
+def eatfruit():
+    global gl_head
+    global fruitDic
+    global snakeLength
+    global gl_f1
+    global gl_f2
+    global gl_f3
+    global gl_f4
+    global gl_f5
+    global gl_f6
+    global gl_f7
+    global gl_f8
+    global gl_f9
+
+    for coordinate in tuple(fruitDic.keys()):
+        if gl_head.distance(coordinate) <= 5:
+            name = fruitDic[coordinate]
+            fruitDic.pop(coordinate)
+            if name == 'f1':
+                gl_f1.clear()
+                snakeLength+=1
+            if name == 'f2':
+                gl_f2.clear()
+                snakeLength+=2
+            if name == 'f3':
+                gl_f3.clear()
+                snakeLength+=3
+            if name == 'f4':
+                gl_f4.clear()
+                snakeLength+=4
+            if name == 'f5':
+                gl_f5.clear()
+                snakeLength+=5
+            if name == 'f6':
+                gl_f6.clear()
+                snakeLength+=6
+            if name == 'f7':
+                gl_f7.clear()
+                snakeLength+=7
+            if name == 'f8':
+                gl_f8.clear()
+                snakeLength+=8
+            if name == 'f9':
+                gl_f9.clear()
+                snakeLength+=9
 
 
 def statusBar(contact: int, time: float, motion: str):
@@ -193,7 +276,8 @@ def go_right():
         return True
 
 
-def draw(locationList: list, snakeLength: int) -> list:  # 注意改回坐标
+def draw(locationList: list) -> list:  # 注意改回坐标
+    global snakeLength
     global gl_head
     save = locationList[0]
     gl_head.color('black', 'green')
@@ -231,13 +315,15 @@ def game():
         k = go_left()
     elif pointer == 'Right':
         k = go_right()
-
+    eatfruit()
     if k:
         pass
     else:
         locationList.insert(0, gl_head.pos())
+    if len(locationList) > 56:
+        locationList.pop()
 
-    draw(locationList, 5)
+    draw(locationList)
     # print(pointer)
     # print(locationList)
 
