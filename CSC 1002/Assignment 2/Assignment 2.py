@@ -76,7 +76,7 @@ def initialization():
 
     global flag
     flag = False
-
+    fruit()
     turtle.update()
 
 
@@ -228,6 +228,7 @@ def statusBar(contact: int, time: float, motion: str):
 def catch():
     global gl_head
     global gl_monster
+    global flag
     X_Distance = gl_head.xcor()-gl_monster.xcor()
     Y_Distance = gl_head.ycor()-gl_monster.ycor()
     if abs(X_Distance) >= abs(Y_Distance):
@@ -247,15 +248,23 @@ def catch():
         if gl_monster.distance(block) <= 15:
             collision += 1
             break
-    if gl_monster.distance(gl_head.pos()) <= 10:
-        global flag
-        flag = True
 
     if flag:
         pass
     else:
         turtle.ontimer(catch, random.randint(280, 400))
 
+def catch_test():
+    global gl_head
+    global gl_monster
+    global flag
+    if gl_monster.distance(gl_head.pos()) <= 10:
+        global flag
+        flag = True
+    if flag:
+        pass
+    else:
+        turtle.ontimer(catch_test,3)
 
 def go_up():
     global gl_head
@@ -338,7 +347,7 @@ def repeat():
         pass
     else:
         locationList.insert(0, gl_head.pos())
-    if len(locationList) > 56:
+    if len(locationList) > 46:
         locationList.pop()
 
     draw(locationList)
@@ -349,20 +358,21 @@ def repeat():
     time += 0.3
 
     global flag
-    if snakeLength == 46:
-        flag = True
-    if flag:
+    if snakeLength >= 46:
         gl_head.write('You win!', move=False, align='center',
                       font=('Arial', 20, 'normal'))
-        turtle.update()
     else:
-        turtle.update()
-        turtle.ontimer(repeat, 300)
+        if flag:
+            gl_head.write('You lose!', move=False, align='center',
+                          font=('Arial', 20, 'normal'))
+            turtle.update()
+        else:
+            turtle.update()
+            turtle.ontimer(repeat, 300)
 
 
 def game(a, b):
     turtle.onscreenclick(None)
-    fruit()
     turtle.listen()
     turtle.onkey(lambda: direction('Up'), 'Up')
     turtle.onkey(lambda: direction('Down'), 'Down')
@@ -371,13 +381,14 @@ def game(a, b):
     # turtle.onkey(, 'Space')
     eatfruit()
     repeat()
-    # catch()
-
+    catch()
+    catch_test()
 
 
 def main():
     initialization()
     turtle.onscreenclick(game)
     turtle.mainloop()
+
 
 main()
