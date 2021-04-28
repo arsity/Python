@@ -339,7 +339,7 @@ def game():
     time += 0.3
     
     global flag
-    if snakeLength == 56:
+    if snakeLength == 46:
         flag = True
     if flag:
         turtle.update()
