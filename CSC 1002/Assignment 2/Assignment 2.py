@@ -114,39 +114,48 @@ def fruit():
     global fruitDic
     fruitDic = {}
 
-    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
+                  20*random.randint(-13, 9)+random.choice((-10, 10)))
     gl_f1.goto(coordinate)
     fruitDic[coordinate] = 'f1'
 
-    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
+                  20*random.randint(-13, 9)+random.choice((-10, 10)))
     gl_f2.goto(coordinate)
     fruitDic[coordinate] = 'f2'
 
-    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
+                  20*random.randint(-13, 9)+random.choice((-10, 10)))
     gl_f3.goto(coordinate)
     fruitDic[coordinate] = 'f3'
 
-    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
+                  20*random.randint(-13, 9)+random.choice((-10, 10)))
     gl_f4.goto(coordinate)
     fruitDic[coordinate] = 'f4'
 
-    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
+                  20*random.randint(-13, 9)+random.choice((-10, 10)))
     gl_f5.goto(coordinate)
     fruitDic[coordinate] = 'f5'
 
-    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
+                  20*random.randint(-13, 9)+random.choice((-10, 10)))
     gl_f6.goto(coordinate)
     fruitDic[coordinate] = 'f6'
 
-    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
+                  20*random.randint(-13, 9)+random.choice((-10, 10)))
     gl_f7.goto(coordinate)
     fruitDic[coordinate] = 'f7'
 
-    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
+                  20*random.randint(-13, 9)+random.choice((-10, 10)))
     gl_f8.goto(coordinate)
     fruitDic[coordinate] = 'f8'
 
-    coordinate = (20*random.randint(-11, 11), 20*random.randint(-13, 9))
+    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
+                  20*random.randint(-13, 9)+random.choice((-10, 10)))
     gl_f9.goto(coordinate)
     fruitDic[coordinate] = 'f9'
 
@@ -206,7 +215,8 @@ def eatfruit():
             if name == 'f9':
                 gl_f9.clear()
                 aimLength += 9
-    turtle.ontimer(eatfruit,5)
+    turtle.ontimer(eatfruit, 5)
+
 
 def statusBar(contact: int, time: float, motion: str):
     status_Turtle = turtle.Turtle(visible=False)
@@ -337,13 +347,14 @@ def game():
 
     global time
     time += 0.3
-    
+
     global flag
     if snakeLength == 46:
         flag = True
     if flag:
+        gl_head.write('You win!', move=False, align='center',
+                      font=('Arial', 20, 'normal'))
         turtle.update()
-        pass
     else:
         turtle.update()
         turtle.ontimer(game, 300)
