@@ -35,6 +35,24 @@ def initialization():
     gl_head.color('red')
     gl_head.goto(0, -40)  # 注意到不同中心
 
+    global gl_monster
+    gl_monster = turtle.Turtle()
+    gl_monster.penup()
+    gl_monster.shape('square')
+    gl_monster.color('purple')
+
+    x1 = random.choice((0, 1))
+    y1 = random.choice((0, 1))
+    x = 20*random.randint(5, 10)
+    if x1 == 1:
+        x = -x
+    if y1 == 0:
+        y = 20*random.randint(3, 8)
+    else:
+        y = 20*random.randint((-12, -7))
+
+    gl_monster.goto(x, y)
+
     global motion_status
     motion_status = 'Paused'
 
@@ -43,6 +61,9 @@ def initialization():
 
     global time
     time = 0
+
+    global locationList
+    locationList = [(0, -40)]
 
     turtle.update()
 
@@ -58,48 +79,67 @@ def statusBar(contact: int, time: float, motion: str):
     status_Turtle.write("", align='center', font=('Arial', 14, 'normal'))
 
 
+def catch():
+    global gl_head
+    global gl_monster
+    X_Distance = gl_head.xcor()-gl_monster.xcor()
+    Y_Distance = gl_head.ycor()-gl_monster.ycor()
+    if abs(X_Distance) >= abs(Y_Distance):
+        if X_Distance > 0:
+            gl_monster.setx(gl_monster.xcor()+20)
+        else:
+            gl_monster.setx(gl_monster.xcor()-20)
+    else:
+        if Y_Distance > 0:
+            gl_monster.sety(gl_monster.ycor()+20)
+        else:
+            gl_monster.sety(gl_monster.ycor()-20)
+    turtle.ontimer(catch, random.randint(280, 400))
+
+
 def go_up():
     global gl_head
-    gl_head.sety(gl_head.ycor()+21)
+    gl_head.sety(gl_head.ycor()+20)
     if gl_head.ycor() > 200:
         gl_head.sety(200)
-    turtle.update()
+        return True
 
 
 def go_down():
     global gl_head
-    gl_head.sety(gl_head.ycor()-21)
+    gl_head.sety(gl_head.ycor()-20)
     if gl_head.ycor() < -280:
         gl_head.sety(-280)
-    turtle.update()
+        return True
 
 
 def go_left():
     global gl_head
-    gl_head.setx(gl_head.xcor()-21)
+    gl_head.setx(gl_head.xcor()-20)
     if gl_head.xcor() < -240:
         gl_head.setx(-240)
-    turtle.update()
+        return True
 
 
 def go_right():
     global gl_head
-    gl_head.setx(gl_head.xcor()+21)
+    gl_head.setx(gl_head.xcor()+20)
     if gl_head.xcor() > 240:
         gl_head.setx(240)
-    turtle.update()
+        return True
 
 
-def draw(locationList: list) -> list:  # 注意改回坐标
+def draw(locationList: list, snakeLength: int) -> list:  # 注意改回坐标
     global gl_head
-    stampId_list = []
+    global stampId_list
+    save = locationList[0]
     gl_head.color('blue', 'black')
-    for location in locationList:
+    gl_head.clearstamps()
+    for location in locationList[0:snakeLength]:
         gl_head.goto(location)
-        stamp_Id = gl_head.stamp()
-        stampId_list.append(stamp_Id)
+        gl_head.stamp()
     gl_head.color('red')
-    return stampId_list
+    gl_head.goto(save)
 
 
 def direction(direction: str):
@@ -115,16 +155,27 @@ def direction(direction: str):
 
 
 def game():
+    global locationList
+    global gl_head
     global pointer
-    print(pointer)
     if pointer == 'Up':
-        go_up()
+        k = go_up()
     elif pointer == 'Down':
-        go_down()
+        k = go_down()
     elif pointer == 'Left':
-        go_left()
+        k = go_left()
     elif pointer == 'Right':
-        go_right()
+        k = go_right()
+
+    if k:
+        pass
+    else:
+        locationList.insert(0, gl_head.pos())
+
+    draw(locationList, 2)
+    # print(pointer)
+    # print(locationList)
+
     global time
     time += 0.3
     turtle.update()
@@ -141,6 +192,7 @@ def main():
     # turtle.onkey(, 'Space')
 
     game()
+    catch()
     turtle.mainloop()
 
 
