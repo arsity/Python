@@ -133,12 +133,12 @@ def draw(locationList: list, snakeLength: int) -> list:  # 注意改回坐标
     global gl_head
     global stampId_list
     save = locationList[0]
-    gl_head.color('blue', 'black')
+    gl_head.color('black', 'green')
     gl_head.clearstamps()
     for location in locationList[0:snakeLength]:
         gl_head.goto(location)
         gl_head.stamp()
-    gl_head.color('red')
+    gl_head.color('black','red')
     gl_head.goto(save)
 
 
