@@ -21,22 +21,25 @@ def initialization():
         frame_turtle.left(90)
         frame_turtle.forward(80)
         frame_turtle.left(90)
-
+    global welcomeText_turtle
     welcomeText_turtle = turtle.Turtle(visible=False)
     welcomeText_turtle.penup()
-    welcomeText_turtle.goto(-230, 150)
-    welcomeText_turtle.write('Welcome to the SNAKE GAME!\n',
+    welcomeText_turtle.goto(-230, 0)
+    welcomeText_turtle.write('Welcome to Luke\'s version of snake.\n\n'
+                             'You are going to use the 4 arrow keys to move the snake\naround the screen,'
+                             'trying to consume all the food items\nbefore the moster catchs you.\n\n'
+                             'Click anywhere on the screen to start the game, have fun!!',
                              align='left', font=('Arial', 12, 'normal'))
 
     global gl_head
-    gl_head = turtle.Turtle(visible=True)
+    gl_head = turtle.Turtle(visible=False)
     gl_head.penup()
     gl_head.shape('square')
     gl_head.color('red')
-    gl_head.goto(0, -40)  # 注意到不同中心
+    gl_head.goto(0, -40)
 
     global gl_monster
-    gl_monster = turtle.Turtle()
+    gl_monster = turtle.Turtle(visible=False)
     gl_monster.penup()
     gl_monster.shape('square')
     gl_monster.color('purple')
@@ -53,11 +56,8 @@ def initialization():
 
     gl_monster.goto(x, y)
 
-    global motion_status
-    motion_status = 'Paused'
-
     global pointer
-    pointer = 'Right'
+    pointer = 'Paused'
 
     global snakeLength
     snakeLength = 1
@@ -76,7 +76,7 @@ def initialization():
 
     global flag
     flag = False
-    fruit()
+
     turtle.update()
 
 
@@ -218,11 +218,20 @@ def eatfruit():
     turtle.ontimer(eatfruit, 5)
 
 
-def statusBar(contact: int, time: float, motion: str):
+def statusBar():
+    global collision
+    global time
+    global pointer
+    global status_Turtle
+    
     status_Turtle = turtle.Turtle(visible=False)
     status_Turtle.penup()
     status_Turtle.goto(0, 250)
-    status_Turtle.write("", align='center', font=('Arial', 14, 'normal'))
+    status_Turtle.clear()
+    status_Turtle.write("%s %-.0f %s %-.0f %s %s" % ('Contact: ', collision, 'Time: ',
+                                                     time, 'Motion: ', pointer), align='center', font=('Arial', 14, 'normal'))
+    turtle.update()
+    turtle.ontimer(statusBar, 10)
 
 
 def catch():
@@ -254,6 +263,7 @@ def catch():
     else:
         turtle.ontimer(catch, random.randint(280, 400))
 
+
 def catch_test():
     global gl_head
     global gl_monster
@@ -264,7 +274,8 @@ def catch_test():
     if flag:
         pass
     else:
-        turtle.ontimer(catch_test,3)
+        turtle.ontimer(catch_test, 3)
+
 
 def go_up():
     global gl_head
@@ -316,6 +327,7 @@ def draw(locationList: list):
 
 def direction(direction: str):
     global pointer
+    pointer_temp = None
     if direction == 'Up':
         pointer = 'Up'
     elif direction == 'Down':
@@ -324,6 +336,12 @@ def direction(direction: str):
         pointer = 'Left'
     elif direction == 'Right':
         pointer = 'Right'
+    # elif direction == 'Space':
+    #     if pointer != 'Paused':
+    #         pointer_temp = pointer
+    #         pointer = 'Paused'
+    #     else:
+    #         pointer = pointer_temp
 
 
 def repeat():
@@ -332,6 +350,7 @@ def repeat():
     global pointer
     global snakeLength
     global aimLength
+    k = None
     if pointer == 'Up':
         k = go_up()
     elif pointer == 'Down':
@@ -340,6 +359,8 @@ def repeat():
         k = go_left()
     elif pointer == 'Right':
         k = go_right()
+    # elif pointer == 'Paused':
+    #     k = True
 
     if snakeLength < aimLength:
         snakeLength += 1
@@ -363,7 +384,8 @@ def repeat():
                       font=('Arial', 20, 'normal'))
     else:
         if flag:
-            gl_head.write('You lose!', move=False, align='center',
+            gl_monster.goto(gl_head.pos())
+            gl_head.write('Game over!', move=False, align='center',
                           font=('Arial', 20, 'normal'))
             turtle.update()
         else:
@@ -373,12 +395,21 @@ def repeat():
 
 def game(a, b):
     turtle.onscreenclick(None)
+    global welcomeText_turtle
+    welcomeText_turtle.clear()
+    global gl_head
+    gl_head.showturtle()
+    global gl_monster
+    gl_monster.showturtle()
+    statusBar()
+    fruit()
+    turtle.update()
     turtle.listen()
     turtle.onkey(lambda: direction('Up'), 'Up')
     turtle.onkey(lambda: direction('Down'), 'Down')
     turtle.onkey(lambda: direction('Right'), 'Right')
     turtle.onkey(lambda: direction('Left'), 'Left')
-    # turtle.onkey(, 'Space')
+    # turtle.onkey(lambda: direction('Space'), 'Space')
     eatfruit()
     repeat()
     catch()
