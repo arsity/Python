@@ -185,34 +185,34 @@ def eatfruit():
     global gl_f9
 
     for coordinate in tuple(fruitDic.keys()):
-        if gl_head.distance(coordinate) <= 8:
+        if gl_head.distance(coordinate) <= 15:
             name = fruitDic[coordinate]
             fruitDic.pop(coordinate)
             if name == 'f1':
                 gl_f1.clear()
                 aimLength += 1
-            if name == 'f2':
+            elif name == 'f2':
                 gl_f2.clear()
                 aimLength += 2
-            if name == 'f3':
+            elif name == 'f3':
                 gl_f3.clear()
                 aimLength += 3
-            if name == 'f4':
+            elif name == 'f4':
                 gl_f4.clear()
                 aimLength += 4
-            if name == 'f5':
+            elif name == 'f5':
                 gl_f5.clear()
                 aimLength += 5
-            if name == 'f6':
+            elif name == 'f6':
                 gl_f6.clear()
                 aimLength += 6
-            if name == 'f7':
+            elif name == 'f7':
                 gl_f7.clear()
                 aimLength += 7
-            if name == 'f8':
+            elif name == 'f8':
                 gl_f8.clear()
                 aimLength += 8
-            if name == 'f9':
+            elif name == 'f9':
                 gl_f9.clear()
                 aimLength += 9
     turtle.ontimer(eatfruit, 5)
