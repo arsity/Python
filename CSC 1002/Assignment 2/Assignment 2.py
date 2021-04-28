@@ -74,28 +74,52 @@ def initialization():
     turtle.update()
 
 
-def Fruit():
-    f1=turtle.Turtle(visible=False)
-    f2=turtle.Turtle(visible=False)
-    f3=turtle.Turtle(visible=False)
-    f4=turtle.Turtle(visible=False)
-    f5=turtle.Turtle(visible=False)
-    f6=turtle.Turtle(visible=False)
-    f7=turtle.Turtle(visible=False)
-    f8=turtle.Turtle(visible=False)
-    f9=turtle.Turtle(visible=False)
+def fruit():
+    f1 = turtle.Turtle(visible=False)
+    f2 = turtle.Turtle(visible=False)
+    f3 = turtle.Turtle(visible=False)
+    f4 = turtle.Turtle(visible=False)
+    f5 = turtle.Turtle(visible=False)
+    f6 = turtle.Turtle(visible=False)
+    f7 = turtle.Turtle(visible=False)
+    f8 = turtle.Turtle(visible=False)
+    f9 = turtle.Turtle(visible=False)
 
-    f1.write('1',align='center',font=('Arial',12,'normal'))
-    f2.write('2',align='center',font=('Arial',12,'normal'))
-    f3.write('3',align='center',font=('Arial',12,'normal'))
-    f4.write('4',align='center',font=('Arial',12,'normal'))
-    f5.write('5',align='center',font=('Arial',12,'normal'))
-    f6.write('6',align='center',font=('Arial',12,'normal'))
-    f7.write('7',align='center',font=('Arial',12,'normal'))
-    f8.write('8',align='center',font=('Arial',12,'normal'))
-    f9.write('9',align='center',font=('Arial',12,'normal'))
+    f1.penup()
+    f2.penup()
+    f3.penup()
+    f4.penup()
+    f5.penup()
+    f6.penup()
+    f7.penup()
+    f8.penup()
+    f9.penup()
 
+    global fruitList
+    fruitList = []
+    for _ in range(9):
+        coordinate = (20*random.randint(-12, 12), 20*random.randint(-14, 10))
+        fruitList.append(coordinate)
 
+    f1.goto(fruitList[0])
+    f2.goto(fruitList[1])
+    f3.goto(fruitList[2])
+    f4.goto(fruitList[3])
+    f5.goto(fruitList[4])
+    f6.goto(fruitList[5])
+    f7.goto(fruitList[6])
+    f8.goto(fruitList[7])
+    f9.goto(fruitList[8])
+
+    f1.write('1', align='center', font=('Arial', 12, 'normal'))
+    f2.write('2', align='center', font=('Arial', 12, 'normal'))
+    f3.write('3', align='center', font=('Arial', 12, 'normal'))
+    f4.write('4', align='center', font=('Arial', 12, 'normal'))
+    f5.write('5', align='center', font=('Arial', 12, 'normal'))
+    f6.write('6', align='center', font=('Arial', 12, 'normal'))
+    f7.write('7', align='center', font=('Arial', 12, 'normal'))
+    f8.write('8', align='center', font=('Arial', 12, 'normal'))
+    f9.write('9', align='center', font=('Arial', 12, 'normal'))
 
 
 def statusBar(contact: int, time: float, motion: str):
@@ -123,11 +147,11 @@ def catch():
 
     global collision
     global gl_bodyLocation
-    for (x, y) in gl_bodyLocation:
-        if abs(gl_monster.xcor()-x) < 16 and abs(gl_monster.ycor()-y) < 16:
+    for block in gl_bodyLocation:
+        if gl_monster.distance(block) <= 15:
             collision += 1
             break
-    if abs(gl_monster.xcor()-gl_head.xcor()) < 8 and abs(gl_monster.ycor()-gl_head.ycor()) < 8:
+    if gl_monster.distance(gl_head.pos()) <= 10:
         global flag
         flag = True
 
@@ -213,7 +237,7 @@ def game():
     else:
         locationList.insert(0, gl_head.pos())
 
-    draw(locationList, 2)
+    draw(locationList, 5)
     # print(pointer)
     # print(locationList)
 
@@ -231,6 +255,7 @@ def game():
 
 def main():
     initialization()
+    fruit()
     turtle.listen()
     turtle.onkey(lambda: direction('Up'), 'Up')
     turtle.onkey(lambda: direction('Down'), 'Down')
@@ -239,7 +264,7 @@ def main():
     # turtle.onkey(, 'Space')
 
     game()
-    catch()
+    # catch()
     turtle.mainloop()
 
 
