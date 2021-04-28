@@ -289,7 +289,7 @@ def go_right():
         return True
 
 
-def draw(locationList: list) -> list:  # 注意改回坐标
+def draw(locationList: list):
     global gl_head
     global aimLength
     global snakeLength
