@@ -62,6 +62,9 @@ def initialization():
     global snakeLength
     snakeLength = 1
 
+    global aimLength
+    aimLength = 1
+
     global collision
     collision = 0
 
@@ -161,7 +164,7 @@ def fruit():
 def eatfruit():
     global gl_head
     global fruitDic
-    global snakeLength
+    global aimLength
     global gl_f1
     global gl_f2
     global gl_f3
@@ -173,37 +176,37 @@ def eatfruit():
     global gl_f9
 
     for coordinate in tuple(fruitDic.keys()):
-        if gl_head.distance(coordinate) <= 5:
+        if gl_head.distance(coordinate) <= 8:
             name = fruitDic[coordinate]
             fruitDic.pop(coordinate)
             if name == 'f1':
                 gl_f1.clear()
-                snakeLength+=1
+                aimLength += 1
             if name == 'f2':
                 gl_f2.clear()
-                snakeLength+=2
+                aimLength += 2
             if name == 'f3':
                 gl_f3.clear()
-                snakeLength+=3
+                aimLength += 3
             if name == 'f4':
                 gl_f4.clear()
-                snakeLength+=4
+                aimLength += 4
             if name == 'f5':
                 gl_f5.clear()
-                snakeLength+=5
+                aimLength += 5
             if name == 'f6':
                 gl_f6.clear()
-                snakeLength+=6
+                aimLength += 6
             if name == 'f7':
                 gl_f7.clear()
-                snakeLength+=7
+                aimLength += 7
             if name == 'f8':
                 gl_f8.clear()
-                snakeLength+=8
+                aimLength += 8
             if name == 'f9':
                 gl_f9.clear()
-                snakeLength+=9
-
+                aimLength += 9
+    turtle.ontimer(eatfruit,5)
 
 def statusBar(contact: int, time: float, motion: str):
     status_Turtle = turtle.Turtle(visible=False)
@@ -277,8 +280,9 @@ def go_right():
 
 
 def draw(locationList: list) -> list:  # 注意改回坐标
-    global snakeLength
     global gl_head
+    global aimLength
+    global snakeLength
     save = locationList[0]
     gl_head.color('black', 'green')
     gl_head.clearstamps()
@@ -307,6 +311,8 @@ def game():
     global locationList
     global gl_head
     global pointer
+    global snakeLength
+    global aimLength
     if pointer == 'Up':
         k = go_up()
     elif pointer == 'Down':
@@ -315,7 +321,9 @@ def game():
         k = go_left()
     elif pointer == 'Right':
         k = go_right()
-    eatfruit()
+
+    if snakeLength < aimLength:
+        snakeLength += 1
     if k:
         pass
     else:
@@ -329,8 +337,10 @@ def game():
 
     global time
     time += 0.3
-
+    
     global flag
+    if snakeLength == 56:
+        flag = True
     if flag:
         turtle.update()
         pass
@@ -348,7 +358,7 @@ def main():
     turtle.onkey(lambda: direction('Right'), 'Right')
     turtle.onkey(lambda: direction('Left'), 'Left')
     # turtle.onkey(, 'Space')
-
+    eatfruit()
     game()
     # catch()
     turtle.mainloop()
