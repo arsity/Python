@@ -78,6 +78,9 @@ def initialization():
     global locationList
     locationList = [(0, -40)]
 
+    global gl_bodyLocation
+    gl_bodyLocation=[]
+
     global flag
     flag = False
 
