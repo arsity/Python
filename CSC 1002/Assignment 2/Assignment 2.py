@@ -21,6 +21,7 @@ def initialization():
         frame_turtle.left(90)
         frame_turtle.forward(80)
         frame_turtle.left(90)
+
     global welcomeText_turtle
     welcomeText_turtle = turtle.Turtle(visible=False)
     welcomeText_turtle.penup()
@@ -114,60 +115,60 @@ def fruit():
     global fruitDic
     fruitDic = {}
 
-    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
-                  20*random.randint(-13, 9)+random.choice((-10, 10)))
-    gl_f1.goto(coordinate)
+    coordinate = (20*random.randint(-11, 11)+10,
+                  20*random.randint(-13, 9)+10)
+    gl_f1.goto(coordinate[0]+10, coordinate[1])
     fruitDic[coordinate] = 'f1'
 
-    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
-                  20*random.randint(-13, 9)+random.choice((-10, 10)))
-    gl_f2.goto(coordinate)
+    coordinate = (20*random.randint(-11, 11)+10,
+                  20*random.randint(-13, 9)+10)
+    gl_f2.goto(coordinate[0]+10, coordinate[1])
     fruitDic[coordinate] = 'f2'
 
-    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
-                  20*random.randint(-13, 9)+random.choice((-10, 10)))
-    gl_f3.goto(coordinate)
+    coordinate = (20*random.randint(-11, 11)+10,
+                  20*random.randint(-13, 9)+10)
+    gl_f3.goto(coordinate[0]+10, coordinate[1])
     fruitDic[coordinate] = 'f3'
 
-    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
-                  20*random.randint(-13, 9)+random.choice((-10, 10)))
-    gl_f4.goto(coordinate)
+    coordinate = (20*random.randint(-11, 11)+10,
+                  20*random.randint(-13, 9)+10)
+    gl_f4.goto(coordinate[0]+10, coordinate[1])
     fruitDic[coordinate] = 'f4'
 
-    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
-                  20*random.randint(-13, 9)+random.choice((-10, 10)))
-    gl_f5.goto(coordinate)
+    coordinate = (20*random.randint(-11, 11)+10,
+                  20*random.randint(-13, 9)+10)
+    gl_f5.goto(coordinate[0]+10, coordinate[1])
     fruitDic[coordinate] = 'f5'
 
-    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
-                  20*random.randint(-13, 9)+random.choice((-10, 10)))
-    gl_f6.goto(coordinate)
+    coordinate = (20*random.randint(-11, 11)+10,
+                  20*random.randint(-13, 9)+10)
+    gl_f6.goto(coordinate[0]+10, coordinate[1])
     fruitDic[coordinate] = 'f6'
 
-    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
-                  20*random.randint(-13, 9)+random.choice((-10, 10)))
-    gl_f7.goto(coordinate)
+    coordinate = (20*random.randint(-11, 11)+10,
+                  20*random.randint(-13, 9)+10)
+    gl_f7.goto(coordinate[0]+10, coordinate[1])
     fruitDic[coordinate] = 'f7'
 
-    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
-                  20*random.randint(-13, 9)+random.choice((-10, 10)))
-    gl_f8.goto(coordinate)
+    coordinate = (20*random.randint(-11, 11)+10,
+                  20*random.randint(-13, 9)+10)
+    gl_f8.goto(coordinate[0]+10, coordinate[1])
     fruitDic[coordinate] = 'f8'
 
-    coordinate = (20*random.randint(-11, 11)+random.choice((-10, 10)),
-                  20*random.randint(-13, 9)+random.choice((-10, 10)))
-    gl_f9.goto(coordinate)
+    coordinate = (20*random.randint(-11, 11)+10,
+                  20*random.randint(-13, 9)+10)
+    gl_f9.goto(coordinate[0]+10, coordinate[1])
     fruitDic[coordinate] = 'f9'
 
-    gl_f1.write('1', align='center', font=('Arial', 12, 'normal'))
-    gl_f2.write('2', align='center', font=('Arial', 12, 'normal'))
-    gl_f3.write('3', align='center', font=('Arial', 12, 'normal'))
-    gl_f4.write('4', align='center', font=('Arial', 12, 'normal'))
-    gl_f5.write('5', align='center', font=('Arial', 12, 'normal'))
-    gl_f6.write('6', align='center', font=('Arial', 12, 'normal'))
-    gl_f7.write('7', align='center', font=('Arial', 12, 'normal'))
-    gl_f8.write('8', align='center', font=('Arial', 12, 'normal'))
-    gl_f9.write('9', align='center', font=('Arial', 12, 'normal'))
+    gl_f1.write('1', align='left', font=('Arial', 12, 'normal'))
+    gl_f2.write('2', align='left', font=('Arial', 12, 'normal'))
+    gl_f3.write('3', align='left', font=('Arial', 12, 'normal'))
+    gl_f4.write('4', align='left', font=('Arial', 12, 'normal'))
+    gl_f5.write('5', align='left', font=('Arial', 12, 'normal'))
+    gl_f6.write('6', align='left', font=('Arial', 12, 'normal'))
+    gl_f7.write('7', align='left', font=('Arial', 12, 'normal'))
+    gl_f8.write('8', align='left', font=('Arial', 12, 'normal'))
+    gl_f9.write('9', align='left', font=('Arial', 12, 'normal'))
 
 
 def eatfruit():
@@ -185,7 +186,7 @@ def eatfruit():
     global gl_f9
 
     for coordinate in tuple(fruitDic.keys()):
-        if gl_head.distance(coordinate) <= 15:
+        if abs(gl_head.xcor()-coordinate[0]) <= 10 and abs(gl_head.ycor()-coordinate[1]) <= 10:
             name = fruitDic[coordinate]
             fruitDic.pop(coordinate)
             if name == 'f1':
@@ -223,15 +224,17 @@ def statusBar():
     global time
     global pointer
     global status_Turtle
-    
+    a = collision
+    b = time
+    c = pointer
     status_Turtle = turtle.Turtle(visible=False)
     status_Turtle.penup()
     status_Turtle.goto(0, 250)
     status_Turtle.clear()
-    status_Turtle.write("%s %-.0f %s %-.0f %s %s" % ('Contact: ', collision, 'Time: ',
-                                                     time, 'Motion: ', pointer), align='center', font=('Arial', 14, 'normal'))
+    status_Turtle.write("%s %-.0f %s %-.0f %s %s" % ('Contact: ', a, 'Time: ',
+                                                     b, 'Motion: ', c), align='center', font=('Arial', 14, 'normal'))
     turtle.update()
-    turtle.ontimer(statusBar, 10)
+    turtle.ontimer(statusBar, 1000)
 
 
 def catch():
@@ -261,7 +264,7 @@ def catch():
     if flag:
         pass
     else:
-        turtle.ontimer(catch, random.randint(280, 400))
+        turtle.ontimer(catch, random.randint(280, 550))
 
 
 def catch_test():
@@ -351,6 +354,7 @@ def repeat():
     global snakeLength
     global aimLength
     k = None
+    lastHead_location = locationList[0]
     if pointer == 'Up':
         k = go_up()
     elif pointer == 'Down':
@@ -362,14 +366,17 @@ def repeat():
     # elif pointer == 'Paused':
     #     k = True
 
-    if snakeLength < aimLength:
-        snakeLength += 1
     if k:
         pass
     else:
         locationList.insert(0, gl_head.pos())
     if len(locationList) > 46:
         locationList.pop()
+
+    slow = False
+    if snakeLength < aimLength and lastHead_location != locationList[0]:
+        snakeLength += 1
+        slow = True
 
     draw(locationList)
     # print(pointer)
@@ -390,7 +397,10 @@ def repeat():
             turtle.update()
         else:
             turtle.update()
-            turtle.ontimer(repeat, 300)
+            if slow:
+                turtle.ontimer(repeat, 500)
+            else:
+                turtle.ontimer(repeat, 300)
 
 
 def game(a, b):
@@ -412,7 +422,7 @@ def game(a, b):
     # turtle.onkey(lambda: direction('Space'), 'Space')
     eatfruit()
     repeat()
-    catch()
+    # catch()
     catch_test()
 
 
