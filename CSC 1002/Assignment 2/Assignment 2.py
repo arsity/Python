@@ -59,7 +59,7 @@ def initialization():
 
     global pointer
     pointer = 'Paused'
-   
+
     global pointer_temp
     pointer_temp = None
 
@@ -76,10 +76,10 @@ def initialization():
     time = 0
 
     global locationList
-    locationList = [(0, -40)]
+    locationList = [(0, -40), (0, -40)]
 
     global gl_bodyLocation
-    gl_bodyLocation=[]
+    gl_bodyLocation = []
 
     global flag
     flag = False
@@ -192,7 +192,7 @@ def eatfruit():
     global gl_f9
 
     for coordinate in tuple(fruitDic.keys()):
-        if gl_head.distance(coordinate)<=15:
+        if gl_head.distance(coordinate) <= 15:
             name = fruitDic[coordinate]
             fruitDic.pop(coordinate)
             if name == 'f1':
@@ -224,25 +224,32 @@ def eatfruit():
                 aimLength += 9
     turtle.ontimer(eatfruit, 5)
 
-s=turtle.Turtle(visible=False)
+
+s = turtle.Turtle(visible=False)
+
+
 def statusBar():
     global collision
     global time
     global pointer
     s.clear()
     s.up()
-    s.goto(-150,250)
-    s.write('Contact:',move=True, align='center', font=('Arial', 14, 'normal'))
+    s.goto(-150, 250)
+    s.write('Contact:', move=True, align='center',
+            font=('Arial', 14, 'normal'))
     s.fd(10)
-    s.write(str(collision),move=True, align='center', font=('Arial', 14, 'normal'))
+    s.write(str(collision), move=True, align='center',
+            font=('Arial', 14, 'normal'))
     s.fd(80)
-    s.write('Time:',move=True, align='center', font=('Arial', 14, 'normal'))
+    s.write('Time:', move=True, align='center', font=('Arial', 14, 'normal'))
     s.fd(10)
-    s.write(str(int(time)),move=True, align='center', font=('Arial', 14, 'normal'))
+    s.write(str(int(time)), move=True, align='center',
+            font=('Arial', 14, 'normal'))
     s.fd(80)
-    s.write('Motion:',move=True, align='center', font=('Arial', 14, 'normal'))
+    s.write('Motion:', move=True, align='center', font=('Arial', 14, 'normal'))
     s.fd(50)
-    s.write(str(pointer),move=True, align='center', font=('Arial', 14, 'normal'))
+    s.write(str(pointer), move=True, align='center',
+            font=('Arial', 14, 'normal'))
 
 
 def catch():
@@ -324,6 +331,7 @@ def draw(locationList: list):
     global gl_head
     global aimLength
     global snakeLength
+    print(locationList)
     save = locationList[0]
     gl_head.color('black', 'green')
     gl_head.clearstamps()
@@ -373,7 +381,9 @@ def repeat():
         k = go_right()
     elif pointer == 'Paused':
         pass
+
     statusBar()
+
     if pointer == 'Paused':
         pass
     else:
