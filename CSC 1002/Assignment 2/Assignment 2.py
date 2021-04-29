@@ -53,12 +53,15 @@ def initialization():
     if y1 == 0:
         y = 20*random.randint(3, 8)
     else:
-        y = 20*random.randint((-12, -7))
+        y = -20*random.randint(7, 12)
 
     gl_monster.goto(x, y)
 
     global pointer
     pointer = 'Paused'
+   
+    global pointer_temp
+    pointer_temp = None
 
     global snakeLength
     snakeLength = 1
@@ -186,7 +189,7 @@ def eatfruit():
     global gl_f9
 
     for coordinate in tuple(fruitDic.keys()):
-        if abs(gl_head.xcor()-coordinate[0]) <= 10 and abs(gl_head.ycor()-coordinate[1]) <= 10:
+        if gl_head.distance(coordinate)<=15:
             name = fruitDic[coordinate]
             fruitDic.pop(coordinate)
             if name == 'f1':
@@ -218,23 +221,25 @@ def eatfruit():
                 aimLength += 9
     turtle.ontimer(eatfruit, 5)
 
-
+s=turtle.Turtle(visible=False)
 def statusBar():
     global collision
     global time
     global pointer
-    global status_Turtle
-    a = collision
-    b = time
-    c = pointer
-    status_Turtle = turtle.Turtle(visible=False)
-    status_Turtle.penup()
-    status_Turtle.goto(0, 250)
-    status_Turtle.clear()
-    status_Turtle.write("%s %-.0f %s %-.0f %s %s" % ('Contact: ', a, 'Time: ',
-                                                     b, 'Motion: ', c), align='center', font=('Arial', 14, 'normal'))
-    turtle.update()
-    turtle.ontimer(statusBar, 1000)
+    s.clear()
+    s.up()
+    s.goto(-150,250)
+    s.write('Contact:',move=True, align='center', font=('Arial', 14, 'normal'))
+    s.fd(10)
+    s.write(str(collision),move=True, align='center', font=('Arial', 14, 'normal'))
+    s.fd(80)
+    s.write('Time:',move=True, align='center', font=('Arial', 14, 'normal'))
+    s.fd(10)
+    s.write(str(int(time)),move=True, align='center', font=('Arial', 14, 'normal'))
+    s.fd(80)
+    s.write('Motion:',move=True, align='center', font=('Arial', 14, 'normal'))
+    s.fd(50)
+    s.write(str(pointer),move=True, align='center', font=('Arial', 14, 'normal'))
 
 
 def catch():
@@ -264,7 +269,7 @@ def catch():
     if flag:
         pass
     else:
-        turtle.ontimer(catch, random.randint(280, 550))
+        turtle.ontimer(catch, random.randint(280, 600))
 
 
 def catch_test():
@@ -330,7 +335,7 @@ def draw(locationList: list):
 
 def direction(direction: str):
     global pointer
-    pointer_temp = None
+    global pointer_temp
     if direction == 'Up':
         pointer = 'Up'
     elif direction == 'Down':
@@ -339,12 +344,12 @@ def direction(direction: str):
         pointer = 'Left'
     elif direction == 'Right':
         pointer = 'Right'
-    # elif direction == 'Space':
-    #     if pointer != 'Paused':
-    #         pointer_temp = pointer
-    #         pointer = 'Paused'
-    #     else:
-    #         pointer = pointer_temp
+    elif direction == 'space':
+        if pointer != 'Paused':
+            pointer_temp = pointer
+            pointer = 'Paused'
+        else:
+            pointer = pointer_temp
 
 
 def repeat():
@@ -363,14 +368,18 @@ def repeat():
         k = go_left()
     elif pointer == 'Right':
         k = go_right()
-    # elif pointer == 'Paused':
-    #     k = True
-
-    if k:
+    elif pointer == 'Paused':
+        pass
+    statusBar()
+    if pointer == 'Paused':
         pass
     else:
-        locationList.insert(0, gl_head.pos())
-    if len(locationList) > 46:
+        if k:
+            pass
+        else:
+            locationList.insert(0, gl_head.pos())
+
+    if len(locationList) > 47:
         locationList.pop()
 
     slow = False
@@ -379,23 +388,25 @@ def repeat():
         slow = True
 
     draw(locationList)
-    # print(pointer)
-    # print(locationList)
 
     global time
     time += 0.3
 
     global flag
     if snakeLength >= 46:
+        draw(locationList)
         gl_head.write('You win!', move=False, align='center',
-                      font=('Arial', 20, 'normal'))
+                      font=('Arial', 12, 'normal'))
+        turtle.update()
     else:
         if flag:
+            draw(locationList[1:1+snakeLength])
             gl_monster.goto(gl_head.pos())
             gl_head.write('Game over!', move=False, align='center',
-                          font=('Arial', 20, 'normal'))
+                          font=('Arial', 12, 'normal'))
             turtle.update()
         else:
+            draw(locationList)
             turtle.update()
             if slow:
                 turtle.ontimer(repeat, 500)
@@ -419,11 +430,11 @@ def game(a, b):
     turtle.onkey(lambda: direction('Down'), 'Down')
     turtle.onkey(lambda: direction('Right'), 'Right')
     turtle.onkey(lambda: direction('Left'), 'Left')
-    # turtle.onkey(lambda: direction('Space'), 'Space')
+    turtle.onkey(lambda: direction('space'), 'space')
     eatfruit()
-    repeat()
-    # catch()
+    catch()
     catch_test()
+    repeat()
 
 
 def main():
