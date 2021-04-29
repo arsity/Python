@@ -331,7 +331,6 @@ def draw(locationList: list):
     global gl_head
     global aimLength
     global snakeLength
-    print(locationList)
     save = locationList[0]
     gl_head.color('black', 'green')
     gl_head.clearstamps()
