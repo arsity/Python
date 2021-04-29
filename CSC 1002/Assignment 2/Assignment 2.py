@@ -404,13 +404,13 @@ def repeat():
     global time
     time += 0.3
 
-    global flag
     if snakeLength >= 46:
         draw(locationList)
         gl_head.write('You win!', move=False, align='center',
                       font=('Arial', 12, 'normal'))
         turtle.update()
     else:
+        global flag
         if flag:
             draw(locationList[1:1+snakeLength])
             gl_monster.goto(gl_head.pos())
@@ -428,14 +428,19 @@ def repeat():
 
 def game(a, b):
     turtle.onscreenclick(None)
+    
     global welcomeText_turtle
     welcomeText_turtle.clear()
+    
     global gl_head
     gl_head.showturtle()
+    
     global gl_monster
     gl_monster.showturtle()
+    
     statusBar()
     fruit()
+    
     turtle.update()
     turtle.listen()
     turtle.onkey(lambda: direction('Up'), 'Up')
@@ -443,6 +448,7 @@ def game(a, b):
     turtle.onkey(lambda: direction('Right'), 'Right')
     turtle.onkey(lambda: direction('Left'), 'Left')
     turtle.onkey(lambda: direction('space'), 'space')
+    
     eatfruit()
     catch()
     catch_test()
