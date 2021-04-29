@@ -401,9 +401,6 @@ def repeat():
 
     draw(locationList)
 
-    global time
-    time += 0.3
-
     if snakeLength >= 46:
         draw(locationList)
         gl_head.write('You win!', move=False, align='center',
@@ -418,11 +415,14 @@ def repeat():
                           font=('Arial', 12, 'normal'))
             turtle.update()
         else:
+            global time
             draw(locationList)
             turtle.update()
             if slow:
+                time += 0.5
                 turtle.ontimer(repeat, 500)
             else:
+                time += 0.3
                 turtle.ontimer(repeat, 300)
 
 
