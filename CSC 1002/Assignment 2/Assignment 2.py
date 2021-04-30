@@ -383,13 +383,8 @@ def repeat():
 
     statusBar()
 
-    if pointer == 'Paused':
-        pass
-    else:
-        if k:
-            pass
-        else:
-            locationList.insert(0, gl_head.pos())
+    if pointer != 'Paused' and k != True:
+        locationList.insert(0, gl_head.pos())
 
     if len(locationList) > 47:
         locationList.pop()
