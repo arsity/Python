@@ -329,10 +329,11 @@ def go_right():
         return True
 
 
-def draw(locationList: list):
+def draw():
     global gl_head
     global aimLength
     global snakeLength
+    global locationList
     save = locationList[0]
     gl_head.color('black', 'green')
     gl_head.clearstamps()
@@ -396,24 +397,23 @@ def repeat():
         snakeLength += 1
         slow = True
 
-    draw(locationList)
 
     if snakeLength >= 46:
-        draw(locationList)
+        draw()
         gl_head.write('You win!', move=False, align='center',
                       font=('Arial', 12, 'normal'))
         turtle.update()
     else:
         global flag
         if flag:
-            draw(locationList[1:1+snakeLength])
+            draw()
             gl_monster.goto(gl_head.pos())
             gl_head.write('Game over!', move=False, align='center',
                           font=('Arial', 12, 'normal'))
             turtle.update()
         else:
             global time
-            draw(locationList)
+            draw()
             turtle.update()
             if slow:
                 time += 0.5
@@ -435,7 +435,6 @@ def game(a, b):
     global gl_monster
     gl_monster.showturtle()
     
-    statusBar()
     fruit()
     
     turtle.update()
