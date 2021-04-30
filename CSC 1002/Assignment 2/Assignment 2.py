@@ -227,30 +227,30 @@ def eatfruit():
     turtle.ontimer(eatfruit, 5)
 
 
-s = turtle.Turtle(visible=False)
+status_turtle = turtle.Turtle(visible=False)
 
 
 def statusBar():
     global collision
     global time
     global pointer
-    s.clear()
-    s.up()
-    s.goto(-150, 250)
-    s.write('Contact:', move=True, align='center',
+    status_turtle.clear()
+    status_turtle.up()
+    status_turtle.goto(-150, 250)
+    status_turtle.write('Contact:', move=True, align='center',
             font=('Arial', 14, 'normal'))
-    s.fd(10)
-    s.write(str(collision), move=True, align='center',
+    status_turtle.fd(10)
+    status_turtle.write(str(collision), move=True, align='center',
             font=('Arial', 14, 'normal'))
-    s.fd(80)
-    s.write('Time:', move=True, align='center', font=('Arial', 14, 'normal'))
-    s.fd(10)
-    s.write(str(int(time)), move=True, align='center',
+    status_turtle.fd(80)
+    status_turtle.write('Time:', move=True, align='center', font=('Arial', 14, 'normal'))
+    status_turtle.fd(10)
+    status_turtle.write(str(int(time)), move=True, align='center',
             font=('Arial', 14, 'normal'))
-    s.fd(80)
-    s.write('Motion:', move=True, align='center', font=('Arial', 14, 'normal'))
-    s.fd(50)
-    s.write(str(pointer), move=True, align='center',
+    status_turtle.fd(80)
+    status_turtle.write('Motion:', move=True, align='center', font=('Arial', 14, 'normal'))
+    status_turtle.fd(50)
+    status_turtle.write(str(pointer), move=True, align='center',
             font=('Arial', 14, 'normal'))
 
 
