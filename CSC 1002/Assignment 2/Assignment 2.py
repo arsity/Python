@@ -6,6 +6,7 @@ def initialization():
 
     turtle.setup(660, 740)
     turtle.tracer(False)
+    turtle.title('Snake by Luke Chan')
 
     frame_turtle = turtle.Turtle(visible=False)
     frame_turtle.penup()
@@ -28,7 +29,8 @@ def initialization():
     welcomeText_turtle.goto(-230, 0)
     welcomeText_turtle.write('Welcome to Luke\'s version of snake.\n\n'
                              'You are going to use the 4 arrow keys to move the snake\naround the screen,'
-                             'trying to consume all the food items\nbefore the moster catchs you.\n\n'
+                             'trying to consume all the food items\nbefore the moster catchs you.\n'
+                             'You can also use space to pause/unpause\n\n'
                              'Click anywhere on the screen to start the game, have fun!!',
                              align='left', font=('Arial', 12, 'normal'))
 
