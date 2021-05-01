@@ -411,6 +411,7 @@ def repeat():
             gl_head.write('Game over!', move=False, align='center',
                           font=('Arial', 12, 'normal'))
             turtle.update()
+            turtle.exitonclick()
         else:
             global time
             draw()
