@@ -407,7 +407,7 @@ def repeat():
         global flag
         if flag:
             draw()
-            gl_monster.goto(gl_head.pos())
+            gl_monster.goto(gl_head.xcor()+20,gl_head.ycor())
             gl_head.write('Game over!\nClick anywhere to close.', move=False, align='center',
                           font=('Arial', 12, 'normal'))
             turtle.update()
