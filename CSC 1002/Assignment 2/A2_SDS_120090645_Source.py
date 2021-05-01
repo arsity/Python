@@ -277,7 +277,7 @@ def catch():
         if gl_monster.distance(block) <= 15:
             collision += 1
             break
-
+    turtle.update()
     if flag:
         pass
     else:
