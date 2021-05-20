@@ -19,21 +19,18 @@ class SinglyLinkedList:
         else:
             return 1 + self.recursive_count(node.pointer)
 
-    def quick_sort(self):
-        self.__compare(self, nowNode=self.head, startNode=self.head,
-                       endNode=self.tail, pivot=self.head)
-
-    def __compare(self, nowNode: Node, startNode: Node, endNode: Node, pivot: Node):
+    def quick_sort(self, nowNode, startNode, endNode, pivot):
         if startNode != endNode:
             if nowNode.pointer != endNode.pointer:
-                self.__compare(nowNode=nowNode.pointer,
-                               startNode=startNode, endNode=endNode, pivot=pivot)
+                self.quick_sort(nowNode=nowNode.pointer,
+                                startNode=startNode, endNode=endNode, pivot=pivot)
             if nowNode.element < pivot.element:
                 nowNode.pointer = startNode.pointer
                 startNode = nowNode
             else:
                 nowNode.pointer = endNode.pointer
                 endNode = nowNode
+            self.quick_sort()
 
 
 a = SinglyLinkedList()
