@@ -114,6 +114,6 @@ def main():
 
     a = quickSort(node8)
     print(result.__str__())
-    print(a)
+    
 
 main()

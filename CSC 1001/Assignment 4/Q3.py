@@ -64,7 +64,7 @@ def HanoiTower(n=3):
                     print('A --> C')
                 else:
                     if stack1[-1] > stack3[-1]:
-                        stack1.append[stack3.pop()]
+                        stack1.append(stack3.pop())
                         print('C --> A')
                     else:
                         stack3.append(stack1.pop())
